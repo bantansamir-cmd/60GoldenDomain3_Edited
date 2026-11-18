@@ -1,0 +1,773 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>الستون الذهبية — المجال الثالث (القيم والمسئوليات)</title>
+<link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Cairo:wght@400;600;700&family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+<style>
+:root{--bg:#f6f1e7;--card:#fffdf8;--card2:#fff8ee;--line:#e8dcc8;--text:#1e293b;--muted:#6b7280;
+--navy:#0f1c3f;--gold:#b8860b;--accent:#0B7A64;--accent2:#c9a227;
+--good:#16a34a;--bad:#dc2626;--warn:#ca8a04;--skip:#64748b;
+--font:Tajawal,system-ui,sans-serif;--fs:16px;--radius:16px}
+*{box-sizing:border-box}
+body{margin:0;font-family:var(--font);font-size:var(--fs);color:var(--text);min-height:100vh;
+background:radial-gradient(800px 400px at 100% 0%,#c9a22733,transparent),var(--bg)}
+button,input,select{font-family:inherit}
+.wrap{max-width:980px;margin:0 auto;padding:16px}
+header.app{position:sticky;top:0;z-index:50;background: linear-gradient(135deg,#422006 0%,#92400e 50%,#b45309 100%);color:#fff;border-bottom:1px solid #ffffff22}
+header .inner{max-width:980px;margin:0 auto;padding:12px 16px;display:flex;gap:10px;flex-wrap:wrap;align-items:center;justify-content:space-between}
+header h1{margin:0;font-size:1.05rem} header p{margin:0;opacity:.9;font-size:.8rem}
+.nav{display:flex;gap:6px;flex-wrap:wrap}
+.nav button,.btn{border:1px solid #fff3;background:#fff1;color:#fff;border-radius:12px;padding:9px 12px;cursor:pointer;font-weight:600}
+.nav button:hover,.btn:hover{background:#fff3}
+.nav button.active,.btn.primary{background:var(--accent2);border-color:#e6c35c;color:#1a1400}
+.card{background:linear-gradient(180deg,var(--card),var(--card2));border:1px solid var(--line);border-radius:var(--radius);padding:18px;margin-bottom:14px;box-shadow:0 10px 24px #0001}
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+@media(max-width:700px){.grid3{grid-template-columns:1fr 1fr}}
+.stat{background:#fff;border:1px solid var(--line);border-radius:14px;padding:12px;text-align:center}
+.stat b{display:block;font-size:1.35rem;color:var(--navy)}
+.muted{color:var(--muted)}
+.toolbar{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin:10px 0}
+select,input[type=number]{background:#fff;border:1px solid var(--line);color:var(--text);border-radius:10px;padding:8px 10px}
+.hidden{display:none!important}
+.qtext{font-size:1.12em;line-height:1.85;margin:0 0 12px;font-weight:700;color:var(--navy)}
+.options{display:grid;gap:9px}
+.opt{display:flex;gap:10px;align-items:flex-start;padding:12px;border-radius:12px;border:1px solid var(--line);background:#fff;cursor:pointer}
+.opt:hover{border-color:var(--accent2)}
+.opt.ok{background:#dcfce7;border-color:#16a34a}
+.opt.bad{background:#fee2e2;border-color:#dc2626}
+.opt.selected{border-color:var(--accent);background:#fffbeb}
+.opt .key{min-width:28px;height:28px;border-radius:8px;background:#f1e9d6;display:flex;align-items:center;justify-content:center;font-weight:700;color:var(--navy)}
+.map{display:flex;flex-wrap:wrap;gap:5px;margin:10px 0}
+.map button{width:32px;height:32px;border-radius:8px;border:1px solid var(--line);background:#fff;color:var(--text);cursor:pointer;font-size:.78rem}
+.map button.cur{outline:2px solid var(--accent2)}
+.map button.ok{background:#dcfce7;border-color:var(--good)}
+.map button.bad{background:#fee2e2;border-color:var(--bad)}
+.map button.time{background:#fef3c7;border-color:var(--warn)}
+.map button.skip{background:#e2e8f0;border-color:var(--skip)}
+.timer{font-weight:700;padding:6px 12px;border-radius:999px;background:#fff;border:1px solid var(--line)}
+.timer.warn{background:#fee2e2;border-color:var(--bad);animation:pulse .55s infinite alternate}
+@keyframes pulse{from{opacity:1}to{opacity:.7}}
+.flip-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:12px}
+.flip{perspective:1000px;height:210px;cursor:pointer}
+.flip-inner{position:relative;width:100%;height:100%;transform-style:preserve-3d;transition:transform .55s;border-radius:14px}
+.flip.flipped .flip-inner{transform:rotateY(180deg)}
+.face{position:absolute;inset:0;backface-visibility:hidden;border-radius:14px;padding:12px;border:1px solid var(--line);overflow:auto;font-size:.9em}
+.face.front{background:#fff}
+.face.back{background:#fffbeb;transform:rotateY(180deg)}
+.face h4{margin:0 0 6px;color:var(--accent);font-size:.8rem}
+.chip{display:inline-block;padding:2px 8px;border-radius:999px;font-size:.75rem;background:#f1e9d6;color:#6b4f0b}
+footer{text-align:center;color:var(--muted);padding:18px;font-size:.9rem}
+#cert{width:900px;padding:36px;background:#fff;color:#0f172a;font-family:Cairo,sans-serif}
+.fb{margin-top:12px;padding:12px;border-radius:12px;background:#f8fafc;border:1px solid var(--line);font-size:.92em}
+
+  body.night{background:#0b1220;color:#e5e7eb}
+  body.night .card{background:#111827;border-color:#1f2937;color:#e5e7eb}
+  body.night .muted{color:#9ca3af}
+  body.night .btn{background:#1f2937;color:#e5e7eb;border-color:#374151}
+  body.night .btn.primary{background:var(--primary,#2563eb);color:#fff}
+  body.night header.app{filter:brightness(.95)}
+  body.night .opt, body.night .option{background:#0f172a;border-color:#334155;color:#e5e7eb}
+  body.night input, body.night select{background:#0f172a;color:#e5e7eb;border-color:#334155}
+  body.night .map button{background:#1f2937;color:#e5e7eb}
+
+
+/* ===== إصلاحات التباين والعرض ===== */
+.card .btn:not(.primary),label.btn{color:#1e293b;background:#fff;border:1px solid var(--line)}
+.card .btn:not(.primary):hover,label.btn:hover{background:#f1e9d6}
+.card .btn.primary{color:#1a1400}
+.sr-item{border:1px solid var(--line);border-radius:12px;padding:12px;margin:0 0 10px;background:#fff;color:#1e293b}
+.sr-q{font-weight:700;margin-bottom:8px;line-height:1.8}
+.sr-opt{margin:4px 0;line-height:1.7}
+.sr-opt.correct{color:#166534;font-weight:700}
+.sr-letter{color:#166534}
+.sr-fb{margin-top:8px;padding-top:8px;border-top:1px dashed #cbd5e1;font-size:.92rem;line-height:1.8}
+body.night .card .btn:not(.primary),body.night label.btn{background:#1f2937;color:#e5e7eb;border-color:#374151}
+body.night .stat{background:#0f172a;color:#e5e7eb;border-color:#334155}
+body.night .stat b,body.night .qtext{color:#e5e7eb}
+body.night .fb,body.night .sr-item{background:#0f172a;color:#e5e7eb;border-color:#334155}
+body.night .sr-opt.correct,body.night .sr-letter{color:#86efac}
+body.night .face.front,body.night .face.back{background:#0f172a;color:#e5e7eb}
+body.night .timer{background:#0f172a;color:#e5e7eb;border-color:#334155}
+body.night .opt .key{background:#1f2937;color:#e5e7eb}
+body.night .opt.ok{background:#14532d;border-color:#16a34a}
+body.night .opt.bad{background:#7f1d1d;border-color:#dc2626}
+body.night .opt.selected{background:#1e3a8a;border-color:#3b82f6}
+</style>
+</head>
+<body>
+<header class="app">
+  <div class="inner">
+    <div>
+      <h1>الستون الذهبية — المجال الثالث</h1>
+      <p>60 سؤالًا · القيم والمسئوليات · محاكاة · بطاقات · JSON · شهادة 55٪</p>
+    </div>
+    <div class="nav">
+      <button type="button" data-view="home" class="active">الرئيسية</button>
+      <button type="button" data-view="exam">المحاكاة</button>
+      <button type="button" data-view="cards">البطاقات</button>
+      <button type="button" data-view="bank">البنك</button>
+    </div>
+  </div>
+</header>
+<main class="wrap">
+<section id="view-home">
+  <div class="card hero-home" style="background:linear-gradient(135deg,#422006 0%,#92400e 50%,#b45309 100%);color:#fff;border:none;padding:22px 20px 20px">
+    <div class="chip" style="background:rgba(255,255,255,.14);color:#fff;border:1px solid rgba(255,255,255,.2)">60 سؤالًا · المجال الثالث — القيم والمسئوليات</div>
+    <h2 style="margin:12px 0 8px;font-size:1.55rem;line-height:1.35">الستون الذهبية — المجال الثالث</h2>
+    <p style="opacity:.92;margin:0 0 16px;line-height:1.7">بنك تفاعلي متوافق مع معايير هيئة تقويم التعليم والتدريب، مع مؤقت وخريطة وبطاقات وشهادة.</p>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:16px">
+      <div style="background:#fff;color:#0f172a;border-radius:14px;padding:14px;text-align:center">
+        <div style="font-size:1.6rem;font-weight:800">60</div>
+        <div style="opacity:.7;font-size:.9rem">سؤالًا</div>
+      </div>
+      <div style="background:#fff;color:#0f172a;border-radius:14px;padding:14px;text-align:center">
+        <div style="font-size:1.6rem;font-weight:800">55%</div>
+        <div style="opacity:.7;font-size:.9rem">درجة الاجتياز</div>
+      </div>
+    </div>
+    <div style="display:flex;flex-wrap:wrap;gap:10px;margin-bottom:18px">
+      <button class="btn primary" type="button" id="btnStart60" style="background:#c9a227;border:none;color:#111;font-weight:700;padding:12px 16px">بدء الاختبار — 60 سؤالًا</button>
+      <button class="btn" type="button" id="btnStart40" style="background:#fff;color:#111;border:none;font-weight:600;padding:12px 14px">40 سؤالًا</button>
+      <button class="btn" type="button" id="btnStart20" style="background:#fff;color:#111;border:none;font-weight:600;padding:12px 14px">20 سؤالًا</button>
+      <button class="btn" type="button" id="btnShuffle" style="background:rgba(255,255,255,.16);color:#fff;border:1px solid rgba(255,255,255,.35);padding:12px 14px">خلط</button>
+    </div>
+    <div style="background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.2);border-radius:16px;padding:14px">
+      <div style="display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:12px">
+        <strong style="font-size:1.05rem">⚙️ الإعدادات</strong>
+        <button type="button" id="btnNight" title="الوضع الليلي" style="border:none;background:rgba(255,255,255,.2);color:#fff;border-radius:999px;width:42px;height:42px;font-size:1.2rem;cursor:pointer">🌙</button>
+      </div>
+      <div style="display:flex;flex-wrap:wrap;gap:10px;align-items:center">
+        <label style="display:flex;align-items:center;gap:6px;background:rgba(0,0,0,.15);padding:8px 10px;border-radius:12px">
+          <span>الخط</span>
+          <select id="fontHome" style="border:none;border-radius:8px;padding:6px 8px;color:#111">
+            <option>Tajawal</option><option>Cairo</option><option>Amiri</option>
+          </select>
+        </label>
+        <div style="display:flex;align-items:center;gap:6px;background:rgba(0,0,0,.15);padding:6px 8px;border-radius:12px">
+          <button type="button" id="btnFontMinus" title="تصغير الخط" style="border:none;background:#fff;color:#111;border-radius:8px;padding:8px 12px;font-weight:800;cursor:pointer">A−</button>
+          <button type="button" id="btnFontPlus" title="تكبير الخط" style="border:none;background:#fff;color:#111;border-radius:8px;padding:8px 12px;font-weight:800;cursor:pointer">A+</button>
+          <span id="fontStepLabel" style="min-width:4.5rem;text-align:center;font-size:.9rem">الحجم 3</span>
+        </div>
+        <label style="display:flex;align-items:center;gap:6px;background:rgba(0,0,0,.15);padding:8px 10px;border-radius:12px;cursor:pointer">
+          <input type="checkbox" id="soundHome" checked> صوت التنبيه
+        </label>
+        <label style="display:flex;align-items:center;gap:6px;background:rgba(0,0,0,.15);padding:8px 10px;border-radius:12px">
+          المؤقت
+          <input type="number" id="timerHome" value="60" min="15" max="180" style="width:64px;border:none;border-radius:8px;padding:6px;color:#111">
+        </label>
+      </div>
+    </div>
+    <p style="opacity:.8;margin:14px 0 0;font-size:.85rem">إعداد المهندس سمير حبيب بنتن</p>
+  </div>
+</section>
+
+<section id="view-exam" class="hidden">
+  <div class="card">
+    <div class="toolbar" style="justify-content:space-between">
+      <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center">
+        <span class="timer" id="timer">60</span>
+        <span class="muted" id="qProgress">—</span>
+      </div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center">
+        <button class="btn" type="button" id="btnAminus" style="color:#1e293b;border-color:var(--line);background:#fff">A−</button>
+        <button class="btn" type="button" id="btnAplus" style="color:#1e293b;border-color:var(--line);background:#fff">A+</button>
+        <button class="btn" type="button" id="btnTTS" style="color:#1e293b;border-color:var(--line);background:#fff">🔊 قراءة</button>
+        <button class="btn" type="button" id="btnCopy" style="color:#1e293b;border-color:var(--line);background:#fff">نسخ</button>
+      </div>
+    </div>
+    <div class="map" id="qMap"></div>
+    <div id="qBox"></div>
+    <div class="toolbar" id="navBottom" style="margin-top:16px;justify-content:center;gap:10px">
+      <button class="btn" type="button" id="btnPrev" style="color:#1e293b;border-color:var(--line);background:#fff;min-width:100px">السابق</button>
+      <button class="btn primary" type="button" id="btnNext" style="min-width:100px">التالي</button>
+      <button class="btn" type="button" id="btnFinish" style="color:#1e293b;border-color:var(--line);background:#fff;min-width:100px">إنهاء</button>
+      <button class="btn" type="button" id="btnHomeExam" style="color:#1e293b;border-color:var(--line);background:#fff;min-width:100px">الرئيسية</button>
+    </div>
+  </div>
+  <div class="card hidden" id="resultBox"></div>
+</section>
+
+<section id="view-cards" class="hidden">
+  <div class="card">
+    <div class="toolbar">
+      <button class="btn primary" type="button" id="btnRefreshCards">تحديث البطاقات</button>
+      <button class="btn" type="button" id="btnHomeCards" style="color:#1e293b;border-color:var(--line);background:#fff">الرئيسية</button>
+    </div>
+    <p class="muted" id="cardsInfo"></p>
+    <div class="flip-grid" id="cardsGrid"></div>
+  </div>
+</section>
+
+<section id="view-bank" class="hidden">
+  <div class="card" id="bankGateCard">
+    <h3 style="margin-top:0">تبويب البنك — محمي</h3>
+    <p class="muted">أدخل كلمة المرور للوصول إلى استيراد/تصدير بنك الأسئلة.</p>
+    <div class="toolbar">
+      <input type="password" id="bankPassInput" placeholder="كلمة المرور" style="padding:8px 12px;border-radius:10px;border:1px solid var(--line,#cbd5e1);min-width:200px">
+      <button class="btn primary" type="button" id="btnBankUnlock">دخول</button>
+      <button class="btn" type="button" data-view="home">رجوع</button>
+    </div>
+    <p class="muted" id="bankGateMsg" style="color:#b91c1c"></p>
+  </div>
+  <div class="card hidden" id="bankPanel">
+    <h3 style="margin-top:0">إدارة البنك</h3>
+    <p class="muted" id="bankInfo"></p>
+
+    <div style="margin:12px 0;padding:12px;border:1px solid var(--line,#e2e8f0);border-radius:12px;background:var(--card,#f8fafc)">
+      <label style="display:block;font-weight:700;margin-bottom:8px">🔍 بحث في البنك</label>
+      <div class="toolbar" style="gap:8px;flex-wrap:wrap">
+        <input type="search" id="bankSearchInput" placeholder="اكتب كلمة أو جزءًا من السؤال..." style="flex:1;min-width:200px;padding:10px 12px;border-radius:10px;border:1px solid var(--line,#cbd5e1)">
+        <button class="btn primary" type="button" id="btnBankSearch">بحث</button>
+        <button class="btn" type="button" id="btnBankSearchClear">مسح</button>
+      </div>
+      <p class="muted" id="bankSearchMeta" style="margin:8px 0 0"></p>
+      <div id="bankSearchResults" style="max-height:70vh;overflow:auto;margin-top:10px"></div>
+    </div>
+
+    <div class="toolbar">
+      <button class="btn primary" type="button" id="btnExportBank">تصدير JSON</button>
+      <button class="btn" type="button" id="btnExportBankPdf">تصدير PDF</button>
+      <button class="btn" type="button" id="btnExportSession">تصدير الجلسة JSON</button>
+      <label class="btn" style="cursor:pointer">استيراد JSON<input type="file" id="importFile" accept=".json,application/json" hidden></label>
+    </div>
+    <div id="bankPreview" style="max-height:70vh;overflow:auto;font-size:.95rem"></div>
+  </div>
+</section>
+
+
+</main>
+<footer>إعداد المهندس سمير حبيب بنتن · الستون الذهبية — المجال الثالث · اجتياز 55٪</footer>
+<div aria-hidden="true" style="position:fixed;left:-10000px;top:0;pointer-events:none">
+  <div id="cert">
+    <div style="border:6px double #0f1c3f;padding:28px;text-align:center">
+      <h2 style="color:#0f1c3f;margin:0 0 6px">شهادة إنجاز</h2>
+      <p style="color:#475569;margin:0 0 14px">الستون الذهبية — المجال الثالث (القيم والمسئوليات)</p>
+      <p>يُشهد بأن</p>
+      <h1 id="certName" style="color:#b8860b;margin:8px 0">—</h1>
+      <p>قد أتمّ الاختبار بنسبة</p>
+      <h2 id="certScore" style="color:#0B7A64">—</h2>
+      <p id="certDate">—</p>
+      <p style="margin-top:22px;color:#64748b">إعداد المهندس سمير حبيب بنتن</p>
+    </div>
+  </div>
+</div>
+<script id="bank-data" type="application/json">
+[{"id":1,"domain":"القيم والمسئوليات","domainId":3,"question":"أثناء تنفيذ برنامج تدريبي في إحدى المنشآت، طلب مدير التدريب من المدرب تضمين محتوى دعائي لخدمات الشركة داخل الحقيبة التدريبية دون إخبار المتدربين بأن هذا محتوى تجاري. ما التصرف المهني الأدق وفقاً لميثاق أخلاقيات المهنة؟","options":["الموافقة الفورية على الطلب لأن مدير التدريب هو المسؤول المباشر عن البرنامج","الموافقة مع تقليل المحتوى الدعائي إلى الحد الأدنى المقبول شكلياً","رفض الطلب وشرح مخالفته لميثاق الأخلاقيات واقتراح بدائل مهنية ملائمة","تنفيذ الطلب مع إخبار المتدربين شفهياً بأن المحتوى تجاري دون توثيق رسمي"],"correctText":"رفض الطلب وشرح مخالفته لميثاق الأخلاقيات واقتراح بدائل مهنية ملائمة","feedback":"ميثاق أخلاقيات المهنة يُلزم المدرب بالشفافية والصدق مع المتدربين، ورفض أي محتوى مضلل أو دعائي غير مصرّح به. التصرف السليم هو رفض الطلب مع توضيح مبرره الأخلاقي واقتراح بدائل تحفظ مصلحة الجميع.","guiding_words":"ميثاق أخلاقيات المهنة، محتوى دعائي، التصرف المهني الأدق","context":"المجال الثالث - المعيار 6 - المعيار الفرعي 1.6 - المؤشر 1.1.6","indicator":"","scenario":""},{"id":2,"domain":"القيم والمسئوليات","domainId":3,"question":"ما الفرق الجوهري بين «ميثاق أخلاقيات المهنة» و«اللوائح التنظيمية» في سياق التدريب المهني؟","options":["الميثاق يوجّه السلوك القيمي، واللوائح تضبط الإجراءات الملزمة","ميثاق الأخلاقيات إلزامي قانونياً في كل الأحوال، واللوائح اختيارية تطوعية في التطبيق","ميثاق الأخلاقيات صادر عن المنشأة التدريبية، واللوائح صادرة عن الجهات الدولية المعنية","ميثاق الأخلاقيات مخصص للمدربين وحدهم، واللوائح مخصصة للمتدربين فقط دون غيرهم"],"correctText":"الميثاق يوجّه السلوك القيمي، واللوائح تضبط الإجراءات الملزمة","feedback":"ميثاق الأخلاقيات يُوجّه السلوك المهني القيمي (الصدق، الأمانة، احترام الخصوصية)، بينما اللوائح تُحدد الضوابط الإجرائية الملزمة (التراخيص، الإجراءات، العقوبات). الاثنان متكاملان وليسا بديلين.","guiding_words":"الفرق الجوهري، ميثاق أخلاقيات المهنة، اللوائح التنظيمية","context":"المجال الثالث - المعيار 6 - المعيار الفرعي 1.6 - المؤشر 1.1.6","indicator":"","scenario":""},{"id":3,"domain":"القيم والمسئوليات","domainId":3,"question":"أثناء تدريب في منشأة حكومية، اكتشف المدرب أن أحد المتدربين يعاني من صعوبات تعلمية لم يُعلن عنها في ملف التسجيل، مما يؤثر على تفاعله مع الأنشطة. ما التصرف الأخلاقي الأدق؟","options":["إعلان الأمر أمام المجموعة كاملة لتنبيه بقية المتدربين إلى مراعاة زميلهم","تجاهل الأمر تماماً وتكليف المتدرب بالأنشطة ذاتها كغيره دون أي مراعاة","إبلاغ إدارة المنشأة شفهياً دون علم المتدرب ليتم اتخاذ ما يلزم بحقه","التواصل الفردي السري مع المتدرب لتقدير وضعه واقتراح الدعم المناسب"],"correctText":"التواصل الفردي السري مع المتدرب لتقدير وضعه واقتراح الدعم المناسب","feedback":"ميثاق الأخلاقيات يُلزم المدرب باحترام خصوصية المتدرب. التصرف السليم هو التواصل الفردي السري مع المتدرب لفهم وضعه وتقديم الدعم المناسب دون إحراجه أو إعلان أمره للآخرين.","guiding_words":"التصرف الأخلاقي الأدق، خصوصية المتدرب، صعوبات تعلمية","context":"المجال الثالث - المعيار 6 - المعيار الفرعي 1.6 - المؤشر 1.1.6","indicator":"","scenario":""},{"id":4,"domain":"القيم والمسئوليات","domainId":3,"question":"أي مما يلي يمثل مخالفة جوهرية لميثاق أخلاقيات المهنة في التدريب؟","options":["استخدام أساليب تدريبية متنوعة تناسب أنماط المتدربين المختلفة وحاجاتهم","قبول هدية مادية كبيرة من متدرب لضمان نجاحه في الاختبار","توثيق ممارسات التدريب اليومية في ملف مهني شخصي منظم للمراجعة","طلب التغذية الراجعة من المتدربين في نهاية كل جلسة تدريبية لتحسين الأداء"],"correctText":"قبول هدية مادية كبيرة من متدرب لضمان نجاحه في الاختبار","feedback":"قبول هدية من متدرب مقابل ضمان النجاح يمثل مخالفة أخلاقية جوهرية، تجمع بين الرشوة وخيانة الأمانة وتحقيق مصلحة شخصية على حساب الموضوعية. الميثاق يمنع أي تصرف قد يُشكّل تضارباً في المصالح.","guiding_words":"مخالفة جوهرية، ميثاق أخلاقيات المهنة","context":"المجال الثالث - المعيار 6 - المعيار الفرعي 1.6 - المؤشر 1.1.6","indicator":"","scenario":""},{"id":5,"domain":"القيم والمسئوليات","domainId":3,"question":"ما المبدأ الأخلاقي الذي يفرض على المدرب إبلاغ المتدربين بأهداف البرنامج ومحتواه ومتطلباته قبل بدء التدريب؟","options":["مبدأ السرية في التعامل مع معلومات البرنامج التدريبي ومحتواه الداخلي","مبدأ الموضوعية في تقييم أداء المتدربين في جميع مراحل البرنامج","مبدأ الشفافية والمصارحة مع المستفيدين من الخدمة","مبدأ العدالة في توزيع الفرص بين المتدربين داخل القاعة التدريبية"],"correctText":"مبدأ الشفافية والمصارحة مع المستفيدين من الخدمة","feedback":"الشفافية والمصارحة تُلزم المدرب بإعلام المتدربين بكل ما يتعلق بالبرنامج (الأهداف، المحتوى، المتطلبات، أساليب التقويم) قبل بدئه، ليتمكنوا من اتخاذ قرار مستنير بالمشاركة.","guiding_words":"المبدأ الأخلاقي، إبلاغ المتدربين، أهداف البرنامج","context":"المجال الثالث - المعيار 6 - المعيار الفرعي 1.6 - المؤشر 1.1.6","indicator":"","scenario":""},{"id":6,"domain":"القيم والمسئوليات","domainId":3,"question":"أثناء تدريب في إحدى الشركات، طُلب من المدرب إخفاء بعض السلبيات الحقيقية للمنتج الذي يدرّب عليه المتدربين لأغراض تسويقية. ما التصرف المنهجي الأدق؟","options":["رفض الإخفاء وشرح أثره السلبي على مصداقية التدريب","الموافقة على الإخفاء مع تسجيل تحفظه في تقرير نهاية البرنامج فقط دون إبلاغ أحد","إخفاء السلبيات مع تضمين معلومات حيادية عامة لا تكشف الحقائق كاملة للمتدربين","الموافقة على الإخفاء مع تحذير المتدربين بشكل ضمني بين السطور أثناء الشرح"],"correctText":"رفض الإخفاء وشرح أثره السلبي على مصداقية التدريب","feedback":"ميثاق أخلاقيات المهنة يحظر التضليل والكتمان المتعمد للمعلومات الجوهرية. التصرف السليم هو رفض الإخفاء وشرح آثاره السلبية على مصداقية التدريب وثقة المستفيدين، مع الالتزام بالصدق الكامل.","guiding_words":"التصرف المنهجي الأدق، إخفاء السلبيات، الأخلاقيات المهنية","context":"المجال الثالث - المعيار 6 - المعيار الفرعي 1.6 - المؤشر 1.1.6","indicator":"","scenario":""},{"id":7,"domain":"القيم والمسئوليات","domainId":3,"question":"أي مما يلي يمثل الممارسة الأكثر توافقاً مع مبدأ «الالتزام باللوائح والأنظمة الوطنية المنظمة للتدريب»؟","options":["الاعتماد على اللوائح القديمة التي يحفظها المدرب من سنوات طويلة في عمله","الاعتماد على لوائح دولية دون التحقق من توافقها مع السياق الوطني المحلي","تطبيق اللوائح بشكل مرن دون الرجوع إلى النصوص الرسمية المعتمدة والسارية","متابعة التحديثات الرسمية للوائح وتكييف الممارسات معها باستمرار"],"correctText":"متابعة التحديثات الرسمية للوائح وتكييف الممارسات معها باستمرار","feedback":"الالتزام باللوائح يستلزم متابعة التحديثات الرسمية باستمرار، وتكييف الممارسات وفق النصوص السارية، لأن اللوائح تتغير وتتطور بتطور الأنظمة والبيئة التنظيمية.","guiding_words":"الممارسة الأكثر توافقاً، الالتزام باللوائح والأنظمة الوطنية","context":"المجال الثالث - المعيار 6 - المعيار الفرعي 1.6 - المؤشر 1.1.6","indicator":"","scenario":""},{"id":8,"domain":"القيم والمسئوليات","domainId":3,"question":"ما الواجب المهني على المدرب عند اكتشاف خطأ في محتوى الحقيبة التدريبية تم اعتمادها رسمياً وتوزيعها على المتدربين؟","options":["الاستمرار في استخدام الحقيبة دون تصحيح لأنها معتمدة رسمياً","إبلاغ الجهة المختصة واقتراح تصحيح فوري مع توثيق الخطأ لمعالجته","تجاهل الخطأ إذا كان تأثيره محدوداً على نتائج التدريب","تصحيح الخطأ شفهياً فقط أثناء الجلسات دون الرجوع للجهة المعتمدة"],"correctText":"إبلاغ الجهة المختصة واقتراح تصحيح فوري مع توثيق الخطأ لمعالجته","feedback":"ميثاق الأخلاقيات يفرض على المدرب الإبلاغ عن أي خطأ يكتشفه في المحتوى المعتمد، مع توثيقه واقتراح التصحيح للجهة المختصة. هذا يحقق الأمانة العلمية وجودة المخرجات.","guiding_words":"الواجب المهني، اكتشاف خطأ، الحقيبة التدريبية","context":"المجال الثالث - المعيار 6 - المعيار الفرعي 1.6 - المؤشر 1.1.6","indicator":"","scenario":""},{"id":9,"domain":"القيم والمسئوليات","domainId":3,"question":"أي مما يلي يمثل «حقاً مهنياً» للمدرب يجب أن تكفله المنشأة التدريبية؟","options":["بيئة عمل ملائمة وحماية مهنية وتطوير مستمر وفق اللوائح","الحصول على ترقية إدارية تلقائية بعد كل برنامج تدريبي يقدمه المدرب","اختيار المتدربين بنفسه دون الرجوع إلى سياسات المنشأة أو لوائحها","تحديد الأجر المالي بناءً على تقديره الشخصي دون اتفاق مسبق مع المنشأة"],"correctText":"بيئة عمل ملائمة وحماية مهنية وتطوير مستمر وفق اللوائح","feedback":"الحقوق المهنية للمدرب تشمل: بيئة عمل ملائمة، حماية مهنية قانونية، فرص التطوير المستمر، الاحترام المهني، والمساواة في المعاملة. هذه حقوق مقررة لا تُنال بالمطالبة الفردية بل بسياسات المنشأة واللوائح.","guiding_words":"حق مهني، المدرب، المنشأة التدريبية","context":"المجال الثالث - المعيار 6 - المعيار الفرعي 2.6 - المؤشر 1.2.6","indicator":"","scenario":""},{"id":10,"domain":"القيم والمسئوليات","domainId":3,"question":"ما الواجب المهني على المدرب تجاه زملائه المدربين وفقاً لأخلاقيات المهنة؟","options":["المنافسة الشرسة لجذب أكبر عدد من المتدربين لصالحه شخصياً","تجنب التعاون معهم حفاظاً على خصوصية أساليبه التدريبية المبتكرة","احترام خبراتهم وتبادل المعرفة معهم وتعزيز روح الفريق التدريبي","الاكتفاء بالتواصل الرسمي فقط دون أي تفاعل مهني إضافي"],"correctText":"احترام خبراتهم وتبادل المعرفة معهم وتعزيز روح الفريق التدريبي","feedback":"أخلاقيات المهنة تُلزم المدرب باحترام زملائه، تبادل الخبرات، تعزيز روح الفريق، وعدم الإضرار بسمعتهم أو التنافس غير الشريف معهم. التعاون المهني يُعزز جودة التدريب على المستوى المؤسسي.","guiding_words":"الواجب المهني، زملاء المدربين، أخلاقيات المهنة","context":"المجال الثالث - المعيار 6 - المعيار الفرعي 2.6 - المؤشر 1.2.6","indicator":"","scenario":""},{"id":11,"domain":"القيم والمسئوليات","domainId":3,"question":"أثناء تقديم برنامج تدريبي، طلب المتدربون من المدرب الإفراج عن مواد إضافية لم تُعتمد رسمياً في البرنامج. ما التصرف المهني الأدق؟","options":["توزيع المواد الإضافية مباشرة على المتدربين لأنها تُعزز تعلمهم وفهمهم","الاعتذار بلطف مع توضيح التزامه بالمواد المعتمدة رسمياً","توزيع المواد بشكل غير رسمي دون أثر مكتوب لتجنب أي مخالفات إدارية","توجيه المتدربين للحصول على المواد بأنفسهم من مصادر خارجية غير معتمدة"],"correctText":"الاعتذار بلطف مع توضيح التزامه بالمواد المعتمدة رسمياً","feedback":"المدرب ملتزم باللوائح التي تُحدد المواد المعتمدة رسمياً. التصرف السليم: الاعتذار بلطف مع توضيح السبب المهني، وإحالة الطلب للقناة الرسمية إن كان مناسباً، دون تجاوز الإجراءات.","guiding_words":"التصرف المهني الأدق، مواد إضافية، معتمدة رسمياً","context":"المجال الثالث - المعيار 6 - المعيار الفرعي 2.6 - المؤشر 1.2.6","indicator":"","scenario":""},{"id":12,"domain":"القيم والمسئوليات","domainId":3,"question":"أي مما يلي يمثل «واجباً مهنياً» على المدرب تجاه المتدربين؟","options":["ضمان حصول جميع المتدربين على درجات النجاح دون استثناء","تخصيص وقت إضافي للمتدربين المتميزين دون غيرهم","إعفاء المتدربين المتفوقين من التقويم النهائي تكريماً لهم","تقديم التدريب بجودة عالية ومعاملة عادلة واحترام الخصوصية"],"correctText":"تقديم التدريب بجودة عالية ومعاملة عادلة واحترام الخصوصية","feedback":"واجبات المدرب تجاه المتدربين تشمل: تقديم تدريب عالي الجودة، المعاملة العادلة بين الجميع، احترام خصوصيتهم، حفظ أسرارهم، وإتاحة الفرص المتكافئة للجميع.","guiding_words":"واجب مهني، المدرب، تجاه المتدربين","context":"المجال الثالث - المعيار 6 - المعيار الفرعي 2.6 - المؤشر 1.2.6","indicator":"","scenario":""},{"id":13,"domain":"القيم والمسئوليات","domainId":3,"question":"ما الواجب المهني على المدرب عند مواجهة ضغط من جهة العمل لتقصير مدة التدريب مع الحفاظ على نفس النتائج التعلمية؟","options":["الموافقة الفورية على التقصير لأن ذلك يخدم مصلحة المنشأة المالية","الرفض التام دون تقديم بدائل أو تفسير مهني مقنع للإدارة المعنية","تحليل الموقف وتقديم توصيات مهنية مبنية على أسس تربوية","الموافقة مع تقليل عدد الأنشطة العملية والاعتماد على الجانب النظري فقط"],"correctText":"تحليل الموقف وتقديم توصيات مهنية مبنية على أسس تربوية","feedback":"واجب المدرب مهنياً: تقديم توصيات مبنية على أسس تربوية تحافظ على جودة التعلم، مع توضيح الآثار السلبية لتقصير المدة على تحقيق النواتج، واقتراح بدائل مهنية محتملة.","guiding_words":"الواجب المهني، ضغط من جهة العمل، جودة التعلم","context":"المجال الثالث - المعيار 6 - المعيار الفرعي 2.6 - المؤشر 1.2.6","indicator":"","scenario":""},{"id":14,"domain":"القيم والمسئوليات","domainId":3,"question":"أي مما يلي يمثل الممارسة الصحيحة للموازنة بين «حقوق المدرب» و«واجباته المهنية»؟","options":["الوفاء بالواجبات أولاً مع المطالبة بالحقوق عبر القنوات الرسمية","المطالبة المستمرة بالحقوق مع التقصير في الواجبات عند ضغط العمل الكبير","التنازل عن الحقوق دائماً تجنباً للخلافات مع الإدارة أو الزملاء في العمل","المطالبة بالحقوق فقط عند وجود مشكلات أو نزاعات ظاهرة في بيئة العمل"],"correctText":"الوفاء بالواجبات أولاً مع المطالبة بالحقوق عبر القنوات الرسمية","feedback":"التوازن المهني يقتضي الوفاء بالواجبات أولاً (الجودة، الالتزام، الأمانة)، والمطالبة بالحقوق عبر القنوات الرسمية المشروعة، دون تنازل أو مطالبة غير مؤسسية.","guiding_words":"الممارسة الصحيحة، الموازنة بين الحقوق والواجبات","context":"المجال الثالث - المعيار 6 - المعيار الفرعي 2.6 - المؤشر 1.2.6","indicator":"","scenario":""},{"id":15,"domain":"القيم والمسئوليات","domainId":3,"question":"أي مما يلي يمثل الممارسة الأكثر تعبيراً عن «الانتماء والولاء للوطن» في سياق التدريب المهني؟","options":["ترديد الشعارات الوطنية بشكل يومي في بداية كل جلسة تدريبية للمتدربين","ربط المحتوى التدريبي باحتياجات سوق العمل الوطني والتنمية","إضافة رموز وطنية إلى دليل المتدرب دون ربطها بالمحتوى التدريبي نفسه","الاكتفاء بالتحدث عن الإنجازات الوطنية أمام المتدربين دون ترجمة عملية"],"correctText":"ربط المحتوى التدريبي باحتياجات سوق العمل الوطني والتنمية","feedback":"الانتماء والولاء الحقيقي يترجم عملياً بربط التدريب باحتياجات الوطن وسوق العمل وتوجهات التنمية الوطنية، فيسهم المدرب في بناء الكفايات الوطنية المطلوبة.","guiding_words":"الممارسة الأكثر تعبيراً، الانتماء والولاء للوطن","context":"المجال الثالث - المعيار 7 - المعيار الفرعي 1.7 - المؤشر 1.1.7","indicator":"","scenario":""},{"id":16,"domain":"القيم والمسئوليات","domainId":3,"question":"أثناء تدريب في بيئة متعددة الثقافات، أبدى أحد المتدربين آراء متعصبة تجاه ثقافة زميله. ما التصرف المهني الأدق وفقاً لقيم المواطنة والتسامح؟","options":["تجاهل الموقف تماماً لتفادي إحداث خلاف أو توتر داخل القاعة التدريبية","الانحياز لرأي الأغلبية لتجنب إحراج المتدربين الآخرين داخل القاعة","إخراج المتدرب من القاعة مباشرة لتوجيه رسالة حاسمة لجميع الحاضرين","التدخل بلطف لتوضيح التسامح واحترام التنوع مع إدارة حوار هادئ"],"correctText":"التدخل بلطف لتوضيح التسامح واحترام التنوع مع إدارة حوار هادئ","feedback":"قيم المواطنة والتسامح تُلزم المدرب بالتدخل التربوي الهادئ لتصحيح المفاهيم، وإدارة حوار يُرسّخ احترام التنوع، مع الحفاظ على كرامة المتدرب وجميع المشاركين.","guiding_words":"التصرف المهني الأدق، قيم المواطنة، التسامح","context":"المجال الثالث - المعيار 7 - المعيار الفرعي 1.7 - المؤشر 2.1.7","indicator":"","scenario":""},{"id":17,"domain":"القيم والمسئوليات","domainId":3,"question":"ما الفرق الجوهري بين «الانتماء الوطني» و«التعصب الوطني» في سياق التدريب؟","options":["الانتماء يرفض التعاون مع الآخرين، والتعصب يقبل التعاون الدولي والإقليمي","الانتماء مخصص للموظفين الحكوميين، والتعصب يخص العاملين في القطاع الخاص","الانتماء قائم على الاحترام والتسامح، والتعصب على الإقصاء والكراهية","الانتماء يعبر عن مشاعر داخلية فقط، والتعصب يظهر في السلوك الخارجي الملموس"],"correctText":"الانتماء قائم على الاحترام والتسامح، والتعصب على الإقصاء والكراهية","feedback":"الانتماء الوطني الحقيقي قائم على الاحترام والتسامح والتعاون البناء مع الآخرين، بينما التعصب يقوم على الإقصاء والكراهية ورفض الآخر. التدريب المهني يجب أن يعزز الانتماء لا التعصب.","guiding_words":"الفرق الجوهري، الانتماء الوطني، التعصب","context":"المجال الثالث - المعيار 7 - المعيار الفرعي 1.7 - المؤشر 2.1.7","indicator":"","scenario":""},{"id":18,"domain":"القيم والمسئوليات","domainId":3,"question":"أي مما يلي يمثل الممارسة الأكثر تعبيراً عن «العدالة وتكافؤ الفرص» في التدريب؟","options":["فرص متساوية للجميع مع مراعاة الفروق الفردية ودعم المحتاجين","إعطاء الأولوية للمتدربين ذوي الخبرات السابقة عند توزيع الأنشطة والمهام","ترك المتدربين يختارون الأدوار بأنفسهم دون أي تدخل من المدرب","توزيع الأنشطة بالتساوي الحسابي فقط دون اعتبار للفروق بين المتدربين"],"correctText":"فرص متساوية للجميع مع مراعاة الفروق الفردية ودعم المحتاجين","feedback":"العدالة وتكافؤ الفرص لا تعني التساوي الحسابي فقط، بل تعني إتاحة الفرص للجميع مع مراعاة الفروق الفردية ودعم المحتاجين، لتحقيق تكافؤ حقيقي في الوصول إلى النواتج.","guiding_words":"الممارسة الأكثر تعبيراً، العدالة، تكافؤ الفرص","context":"المجال الثالث - المعيار 7 - المعيار الفرعي 1.7 - المؤشر 3.1.7","indicator":"","scenario":""},{"id":19,"domain":"القيم والمسئوليات","domainId":3,"question":"أثناء تدريب في منشأة وطنية، لاحظ المدرب أن بعض المتدربين يرفضون التعاون مع زملائهم من منطقة أخرى. ما التصرف الأخلاقي الأدق؟","options":["تجاهل السلوك طالما لا يوجد ضرر واضح على سير التدريب في القاعة","الانحياز لفئة المتدربين الأكثر تجاوباً لتسهيل إدارة القاعة والوقت","إبلاغ إدارة المنشأة فقط وتفويضها كلياً في التعامل مع المشكلة","إعادة توزيع المجموعات وتصميم أنشطة تعزز التعاون بين المناطق"],"correctText":"إعادة توزيع المجموعات وتصميم أنشطة تعزز التعاون بين المناطق","feedback":"قيم المواطنة تُلزم المدرب بالتدخل المهني البناء: إعادة تصميم الأنشطة والمجموعات لتعزيز التعاون بين المناطق، وترسيخ الوحدة الوطنية عبر ممارسة عملية لا عبر الخطب فقط.","guiding_words":"التصرف الأخلاقي الأدق، رفض التعاون، قيم المواطنة","context":"المجال الثالث - المعيار 7 - المعيار الفرعي 1.7 - المؤشر 2.1.7","indicator":"","scenario":""},{"id":20,"domain":"القيم والمسئوليات","domainId":3,"question":"ما المبدأ القيمي الذي يفرض على المدرب عدم استخدام موقعه المهني للترويج لآراء سياسية أو فئوية داخل القاعة؟","options":["مبدأ التطوير المهني المستمر للمدرب في مجاله","مبدأ الموضوعية والحياد المهني في البيئة التدريبية","مبدأ التعاون بين المدربين في إعداد الحقائب التدريبية","مبدأ الشفافية في الإفصاح عن معلومات البرنامج للمتدربين"],"correctText":"مبدأ الموضوعية والحياد المهني في البيئة التدريبية","feedback":"الموضوعية والحياد المهني تُلزم المدرب بعدم استخدام موقعه للترويج لآراء سياسية أو فئوية، والحفاظ على القاعة مساحة تعليمية محايدة تحترم جميع المتدربين مهما كانت آراؤهم.","guiding_words":"المبدأ القيمي، عدم الترويج لآراء سياسية، القاعة التدريبية","context":"المجال الثالث - المعيار 7 - المعيار الفرعي 1.7 - المؤشر 3.1.7","indicator":"","scenario":""},{"id":21,"domain":"القيم والمسئوليات","domainId":3,"question":"أثناء إعداد حقيبة تدريبية متخصصة، استعان المدرب بمواد منشورة لمؤلفين آخرين دون الإشارة إلى مصادرها الأصليّة. ما التقييم الأخلاقي الأدق لهذا التصرف؟","options":["تصرف مقبول لأن الهدف تعليمي ولا يترتب عليه أي ربح مادي","مخالفة صريحة لمبدأ الأمانة العلمية وانتهاك لحقوق الملكية الفكرية","تصرف مقبول إذا تمت إعادة صياغة المواد بأسلوب المدرب الشخصي","تصرف مقبول لأن المواد التعليمية لا تخضع لحقوق المؤلف في السياق المهني"],"correctText":"مخالفة صريحة لمبدأ الأمانة العلمية وانتهاك لحقوق الملكية الفكرية","feedback":"الأمانة العلمية تُلزم المدرب بالتوثيق الدقيق لكل مصدر يستعين به، والإشارة إلى حقوق المؤلفين الأصليين. الاستعانة بمواد الآخرين دون إشارة تمثل انتحالاً علمياً وانتهاكاً صريحاً لحقوق الملكية الفكرية، بغض النظر عن الهدف التعليمي.","guiding_words":"التقييم الأخلاقي الأدق، الأمانة العلمية، حقوق الملكية الفكرية","context":"المجال الثالث - المعيار 7 - المعيار الفرعي 2.7 - المؤشر 3.2.7","indicator":"","scenario":""},{"id":22,"domain":"القيم والمسئوليات","domainId":3,"question":"ما التصرف الأخلاقي الصحيح عند اكتشاف المدرب أن نتائج اختبار تدريبي أظهرت تفوق متدرب لم يكن متوقعاً تفوقه، مما يثير شكوكه حول مصداقية النتائج؟","options":["إعلان النتائج دون أي تحفظ لأن الموضوعية تقتضي احترام النتائج كما هي","تعديل الدرجة يدوياً لتصبح متوافقة مع توقعاته السابقة عن أداء المتدرب","إلغاء نتيجة المتدرب مباشرة بحجة أنه لم يكن متوقعاً أن يتفوق","مراجعة أوراق الإجابة وتطبيق معايير التصحيح والتحقق من شبهة الغش"],"correctText":"مراجعة أوراق الإجابة وتطبيق معايير التصحيح والتحقق من شبهة الغش","feedback":"النزاهة والأمانة العلمية تُلزم المدرب بالتحقق قبل إصدار أي حكم، خصوصاً عند وجود شبهة. التصرف السليم: مراجعة دقيقة لورقة الإجابة، وتطبيق معايير التصحيح، والتأكد من عدم وجود غش أو خطأ في التصحيح.","guiding_words":"التصرف الأخلاقي الصحيح، النزاهة العلمية، مصداقية النتائج","context":"المجال الثالث - المعيار 7 - المعيار الفرعي 2.7 - المؤشر 1.2.7","indicator":"","scenario":""},{"id":23,"domain":"القيم والمسئوليات","domainId":3,"question":"أثناء تدريب إداري في منشأة صناعية، اطّلع المدرب على معلومات مالية حساسة ضمن ملفات المتدربين. ما التصرف المهني الأدق تجاه هذه المعلومات؟","options":["مناقشتها مع زملاء المدربين لأخذ رأيهم في أفضل طرق التدريب المناسبة","استخدامها كأمثلة تدريبية في برامج أخرى تُقدّم لمنشآت مماثلة في المجال","الحفاظ على سريتها المطلقة وعدم استخدامها إلا في السياق الرسمي","تضمينها بشكل تفصيلي في تقرير نهاية البرنامج لتحسين جودة التدريب"],"correctText":"الحفاظ على سريتها المطلقة وعدم استخدامها إلا في السياق الرسمي","feedback":"السرية المهنية تُلزم المدرب بالحفاظ المطلق على بيانات المتدربين والمعلومات الحساسة التي يطّلع عليها بحكم عمله. لا يجوز استخدامها أو مشاركتها إلا في السياق الرسمي المعتمد وبموافقة الجهة المختصة.","guiding_words":"التصرف المهني الأدق، السرية، معلومات مالية حساسة","context":"المجال الثالث - المعيار 7 - المعيار الفرعي 2.7 - المؤشر 4.2.7","indicator":"","scenario":""},{"id":24,"domain":"القيم والمسئوليات","domainId":3,"question":"أي مما يلي يمثل الممارسة الأكثر توافقاً مع مبدأ «النزاهة العلمية» في التدريب؟","options":["الاعتراف بحدود خبرة المدرب وإحالة المتدربين لمصادر موثوقة","تقديم آراء شخصية على أنها حقائق علمية مُجمَع عليها في المجال","الاعتماد على مصادر غير موثوقة لتسريع إعداد المحتوى التدريبي وتجهيزه","تجنب الاعتراف بأخطاء المحتوى السابقة للحفاظ على هيبة المدرب أمام المتدربين"],"correctText":"الاعتراف بحدود خبرة المدرب وإحالة المتدربين لمصادر موثوقة","feedback":"النزاهة العلمية تُلزم المدرب بالصدق في عرض معارفه، والاعتراف بحدود خبرته، والإحالة لمصادر موثوقة عند الحاجة، والامتناع عن تقديم آراء شخصية كحقائق علمية.","guiding_words":"الممارسة الأكثر توافقاً، النزاهة العلمية، التدريب","context":"المجال الثالث - المعيار 7 - المعيار الفرعي 2.7 - المؤشر 1.2.7","indicator":"","scenario":""},{"id":25,"domain":"القيم والمسئوليات","domainId":3,"question":"في نهاية برنامج تدريبي، طُلب من المدرب تعديل بيانات استبيان الرضا الختامي لإظهار نتائج أفضل أمام الإدارة. ما التصرف المنهجي الأدق؟","options":["تعديل البيانات بشكل طفيف بما لا يُلاحظ إحصائياً ولا يثير انتباه الإدارة","رفض التعديل لمخالفته النزاهة مع تقديم النتائج الفعلية","تعديل البيانات مع الاحتفاظ بنسخة أصلية للمراجعة الداخلية عند الحاجة","تعديل البيانات مع الإشارة شفهياً للإدارة بأن النتائج الأصلية أقل تفاؤلاً"],"correctText":"رفض التعديل لمخالفته النزاهة مع تقديم النتائج الفعلية","feedback":"تعديل بيانات استبيان الرضا يُعد تزييفاً صريحاً للنتائج، ويخالف أخلاقيات المصداقية والأمانة العلمية. التصرف السليم: رفض التعديل، وشرح مبرر الرفض، وتقديم النتائج الفعلية كما هي، مع إمكانية تقديم توصيات تحسينية.","guiding_words":"التصرف المنهجي الأدق، تعديل البيانات، النزاهة العلمية","context":"المجال الثالث - المعيار 7 - المعيار الفرعي 2.7 - المؤشر 1.2.7","indicator":"","scenario":""},{"id":26,"domain":"القيم والمسئوليات","domainId":3,"question":"ما الفرق الجوهري بين «السرية المهنية» و«الشفافية» في سياق التدريب؟","options":["السرية تخص معلومات المنشأة فقط، والشفافية تخص معلومات المتدربين الشخصية جميعها","السرية مطلوبة تجاه الإدارة، والشفافية مطلوبة تجاه المتدربين فقط دون غيرهم","السرية مبدئية لا استثناء فيها، والشفافية قابلة للتفاوض حسب الموقف والظرف","السرية تحمي معلومات الغير، والشفافية تُفصح عما يتصل بحقوق الأطراف المعنية"],"correctText":"السرية تحمي معلومات الغير، والشفافية تُفصح عما يتصل بحقوق الأطراف المعنية","feedback":"السرية تحمي معلومات الغير (بيانات المتدربين الشخصية، الأسرار المهنية، المعلومات الحساسة) من الإفشاء غير المصرح به. الشفافية تُفصح عن المعلومات ذات العلاقة بحق الأطراف المعنية (أهداف البرنامج، معايير التقويم، الإجراءات). لكل منهما نطاقه ولا يتعارضان.","guiding_words":"الفرق الجوهري، السرية المهنية، الشفافية","context":"المجال الثالث - المعيار 7 - المعيار الفرعي 2.7 - المؤشر 4.2.7","indicator":"","scenario":""},{"id":27,"domain":"القيم والمسئوليات","domainId":3,"question":"أثناء تدريب مهني، لاحظ المدرب أن أحد المتدربين يستخدم محتوى الحقيبة التي وُزّعت عليه في مشروع تجاري خاص يدرّبه لآخرين بمقابل مادي. ما التصرف المهني الأدق؟","options":["تجاهل الأمر لأن ما بعد التدريب خارج نطاق مسؤولية المدرب المهنية","الاحتجاز الفوري للحقيبة ومصادرتها دون إجراءات رسمية موثقة أو إشعار","التواصل رسمياً مع المتدرب لتوضيح الملكية الفكرية وإبلاغ الجهة المختصة","نشر السلوك على مجموعات المدربين للتحذير منه دون الرجوع إلى المتدرب نفسه"],"correctText":"التواصل رسمياً مع المتدرب لتوضيح الملكية الفكرية وإبلاغ الجهة المختصة","feedback":"حقوق الملكية الفكرية للمحتوى التدريبي محمية. التصرف السليم: التواصل المهني مع المتدرب لتوضيح المخالفة، وإبلاغ الجهة المختصة عند الحاجة، مع توثيق الإجراء. لا يجوز التجاهل ولا تجاوز القنوات الرسمية.","guiding_words":"التصرف المهني الأدق، حقوق الملكية الفكرية، مشروع تجاري","context":"المجال الثالث - المعيار 7 - المعيار الفرعي 2.7 - المؤشر 3.2.7","indicator":"","scenario":""},{"id":28,"domain":"القيم والمسئوليات","domainId":3,"question":"أي مما يلي يمثل «ممارسة غير أخلاقية» في سياق النزاهة العلمية؟","options":["الاستشهاد الدقيق بآراء الخبراء مع توثيق أسمائهم ومصادرهم في الحقيبة","نسب نتائج بحث علمي للمدرب نفسه دون أن يكون قد أجراه أو شارك فيه","مراجعة المحتوى العلمي للحقيبة من قِبل لجنة تحكيم متخصصة قبل الاعتماد","الإشارة إلى وجود خلاف علمي حول موضوع معين بدلاً من تقديمه كحقيقة مطلقة"],"correctText":"نسب نتائج بحث علمي للمدرب نفسه دون أن يكون قد أجراه أو شارك فيه","feedback":"نسب نتائج بحث لم يُجرِه المدرب أو لم يشارك فيه تزوير ينتهك النزاهة العلمية والأمانة المهنية. أما الاستشهاد الموثّق والتحكيم المتخصص والإشارة إلى الخلاف العلمي فهي ممارسات سليمة.","guiding_words":"ممارسة غير أخلاقية، النزاهة العلمية","context":"المجال الثالث - المعيار 7 - المعيار الفرعي 2.7 - المؤشر 1.2.7","indicator":"","scenario":""},{"id":29,"domain":"القيم والمسئوليات","domainId":3,"question":"عند إعداد مادة تدريبية تحتوي على آراء علمية متباينة حول موضوع معين، ما الممارسة الأدق التي تحقق النزاهة العلمية؟","options":["اختيار الرأي الأسهل فقط لتجنب إرباك المتدربين بتباين الآراء العلمية","تقديم الرأي الأكثر شيوعاً فقط باعتباره الرأي المعتمد رسمياً في المجال","عرض الآراء المختلفة مع توثيق مصادرها وتوضيح سياقها","الاكتفاء بتقديم رأي واحد مدعوم بالمصادر الموثوقة دون عرض بقية الآراء"],"correctText":"عرض الآراء المختلفة مع توثيق مصادرها وتوضيح سياقها","feedback":"النزاهة العلمية تُلزم المدرب بعرض الآراء المختلفة عند وجود خلاف علمي، مع توثيق المصادر وتوضيح السياق، ليتمكن المتدرب من تكوين رؤية شاملة وموضوعية، بدلاً من تبسيط مخل أو فرض رأي واحد.","guiding_words":"الممارسة الأدق، النزاهة العلمية، آراء متباينة","context":"المجال الثالث - المعيار 7 - المعيار الفرعي 2.7 - المؤشر 1.2.7","indicator":"","scenario":""},{"id":30,"domain":"القيم والمسئوليات","domainId":3,"question":"ما الممارسة الأكثر احترافية لمواكبة المستجدات العلمية والتقنية في مجال التدريب؟","options":["الاعتماد على الدورات التي أُنجزت قبل سنوات دون تحديث مستمر للمعرفة","قراءة المنشورات العلمية والمشاركة في المؤتمرات وورش العمل المتخصصة","الاكتفاء بمتابعة المحتوى الرقمي المتاح على وسائل التواصل الاجتماعي فقط","الاعتماد على الخبرة الميدانية فقط دون الحاجة إلى القراءة المستمرة والمتابعة"],"correctText":"قراءة المنشورات العلمية والمشاركة في المؤتمرات وورش العمل المتخصصة","feedback":"الممارسة الأكثر احترافية: الاعتماد على المصادر الرسمية الموثوقة (المجلات العلمية، الجهات الرسمية، المؤتمرات، ورش العمل المتخصصة) بشكل منتظم، مع تحديث مستمر للمعرفة.","guiding_words":"الممارسة الأكثر احترافية، مواكبة المستجدات، مجال التدريب","context":"المجال الثالث - المعيار 8 - المعيار الفرعي 1.8 - المؤشر 1.1.8","indicator":"","scenario":""},{"id":31,"domain":"القيم والمسئوليات","domainId":3,"question":"أثناء متابعة المستجدات في مجال الذكاء الاصطناعي التطبيقي بالتدريب، اكتشف المدرب أن أداة جديدة تخدم مجاله بشكل واضح. ما التصرف المهني الأدق؟","options":["رفض الأداة الجديدة لأنها لم تُعتمد رسمياً في المنشأة حتى الآن","استخدامها مباشرة دون دراستها لضمان التقدم التقني في التدريب","تجاهلها والانتظار حتى تُصبح شائعة الاستخدام من قبل الزملاء","دراسة الأداة وتقييم توافقها مع اللوائح ثم اقتراح اعتمادها"],"correctText":"دراسة الأداة وتقييم توافقها مع اللوائح ثم اقتراح اعتمادها","feedback":"الممارسة المهنية السليمة: دراسة الأداة الجديدة، تقييم مدى ملاءمتها للاحتياج التدريبي، التحقق من توافقها مع اللوائح وسياسات المنشأة، ثم اقتراح اعتمادها رسمياً عبر القنوات المعتمدة.","guiding_words":"التصرف المهني الأدق، أدوات جديدة، متابعة المستجدات","context":"المجال الثالث - المعيار 8 - المعيار الفرعي 1.8 - المؤشر 1.1.8","indicator":"","scenario":""},{"id":32,"domain":"القيم والمسئوليات","domainId":3,"question":"ما الممارسة الأدق التي تحقق التوازن بين «متابعة المستجدات» و«الالتزام باللوائح» في التدريب؟","options":["دراسة المستجدات وتقييمها ثم اعتمادها رسمياً قبل التطبيق","تطبيق المستجدات فوراً لضمان الريادة التقنية دون انتظار الموافقات","الاكتفاء بالأساليب التقليدية حتى تُعتمد المستجدات من الجهات الدولية","الاعتماد على رأي المدربين المستقلين دون الرجوع إلى سياسات المنشأة"],"correctText":"دراسة المستجدات وتقييمها ثم اعتمادها رسمياً قبل التطبيق","feedback":"التوازن المهني يقتضي دراسة المستجدات وتقييمها بعمق مهني، ثم اتباع القنوات الرسمية لاعتمادها قبل التطبيق. هذا يحقق الريادة التقنية مع احترام اللوائح والمسؤوليات.","guiding_words":"الممارسة الأدق، التوازن، متابعة المستجدات، الالتزام باللوائح","context":"المجال الثالث - المعيار 8 - المعيار الفرعي 1.8 - المؤشر 1.1.8","indicator":"","scenario":""},{"id":33,"domain":"القيم والمسئوليات","domainId":3,"question":"أي مما يلي يمثل «مصدراً موثوقاً» لمتابعة المستجدات العلمية والتقنية في التدريب المهني؟","options":["المحتوى الترويجي للشركات التجارية المنتجة للأدوات التدريبية فقط","المقالات المنشورة في المجلات العلمية المحكمة والجهات الرسمية","المدونات الشخصية للمدربين المستقلين دون التحقق من مؤهلاتهم","المنشورات غير الموثوقة على المنصات الرقمية للتسويق التدريبي"],"correctText":"المقالات المنشورة في المجلات العلمية المحكمة والجهات الرسمية","feedback":"المصادر الموثوقة لمتابعة المستجدات العلمية والتقنية هي: المقالات المنشورة في المجلات العلمية المحكمة، تقارير الجهات الرسمية المتخصصة، المؤتمرات العلمية المعتمدة، وورش العمل ذات المراجع الرصينة. هذه المصادر تخضع لتحكيم وتحقق علمي.","guiding_words":"مصدراً موثوقاً، متابعة المستجدات، التدريب المهني","context":"المجال الثالث - المعيار 8 - المعيار الفرعي 1.8 - المؤشر 1.1.8","indicator":"","scenario":""},{"id":34,"domain":"القيم والمسئوليات","domainId":3,"question":"أثناء إعداد برنامج تدريبي، اكتشف المدرب أن أحد الأساليب التي يعتمدها أصبح متجاوزاً علمياً بعد ظهور أدلة بحثية حديثة. ما التصرف المهني الأدق؟","options":["الاستمرار في استخدام الأسلوب لأن المتدربين لا يعرفون بوجود بدائل أحدث","تجاهل النتائج البحثية والاعتماد على خبرته الطويلة في المجال التدريبي","تحديث محتوى البرنامج وفق الأدلة البحثية الحديثة مع توثيق المبررات","تقديم الأسلوب القديم والجديد معاً لترك الخيار للمتدربين دون توجيه منه"],"correctText":"تحديث محتوى البرنامج وفق الأدلة البحثية الحديثة مع توثيق المبررات","feedback":"الممارسة المهنية السليمة: تحديث المحتوى وفق الأدلة البحثية الحديثة، مع توثيق مبررات التحديث، وضمان ملاءمة البرنامج لأحدث المعايير. هذا يُجسّد التزام المدرب بالتطوير المهني المستمر.","guiding_words":"التصرف المهني الأدق، أسلوب متجاوز، أدلة بحثية حديثة","context":"المجال الثالث - المعيار 8 - المعيار الفرعي 1.8 - المؤشر 1.1.8","indicator":"","scenario":""},{"id":35,"domain":"القيم والمسئوليات","domainId":3,"question":"ما الأثر المتوقع على المدرب الذي يُهمل متابعة المستجدات العلمية والتقنية في مجاله لسنوات؟","options":["تحسّن مستويات التميز المهني بسبب الاعتماد على خبرة طويلة متراكمة","ارتفاع الطلب على خدماته التدريبية لأنه يحافظ على الطرق التقليدية","زيادة فرص الترقية الوظيفية بسبب الاستقرار على الممارسات المعروفة","تقادم معارفه وضعف مخرجاته التدريبية وفقدان قدرته التنافسية"],"correctText":"تقادم معارفه وضعف مخرجاته التدريبية وفقدان قدرته التنافسية","feedback":"إهمال متابعة المستجدات يؤدي حتماً إلى التقادم المهني، وضعف جودة المخرجات التدريبية، وفقدان القدرة التنافسية، وانخفاض الطلب على خدمات المدرب في سوق التدريب المتطور.","guiding_words":"الأثر المتوقع، إهمال متابعة المستجدات، المدرب","context":"المجال الثالث - المعيار 8 - المعيار الفرعي 1.8 - المؤشر 2.1.8","indicator":"","scenario":""},{"id":36,"domain":"القيم والمسئوليات","domainId":3,"question":"أي مما يلي يمثل الممارسة الأكثر احترافية لتحليل «التوجهات المستقبلية واحتياجات سوق العمل» في مجال التدريب؟","options":["تحليل بيانات سوق العمل الرسمية ومقارنتها بمخرجات البرامج الحالية","الاعتماد على آراء المدربين المستقلين حول المهنة دون الرجوع لبيانات رسمية","الاعتماد على تقارير المنشآت الكبرى فقط لأنها الأقرب لتوجهات السوق","الاعتماد على الشهادات الدولية كمصدر وحيد لتحديد احتياجات السوق"],"correctText":"تحليل بيانات سوق العمل الرسمية ومقارنتها بمخرجات البرامج الحالية","feedback":"الممارسة الأكثر احترافية: الاعتماد على بيانات سوق العمل الرسمية (الإحصاءات، تقارير الجهات المختصة، دراسات الطلب على المهارات)، ومقارنتها بمخرجات البرامج التدريبية لتحديد الفجوات والتوجهات المستقبلية.","guiding_words":"الممارسة الأكثر احترافية، التوجهات المستقبلية، احتياجات سوق العمل","context":"المجال الثالث - المعيار 8 - المعيار الفرعي 1.8 - المؤشر 2.1.8","indicator":"","scenario":""},{"id":37,"domain":"القيم والمسئوليات","domainId":3,"question":"ما الممارسة الأدق لإجراء بحث تربوي صغير حول قضايا التدريب في المنشأة؟","options":["الاعتماد على آراء المدربين فقط لأنهم الأقرب للميدان التدريبي والعملي","تصميم بحث منهجي بأدوات موثوقة وتحليل موضوعي وتوثيق كامل","الاعتماد على تجارب مدربين دوليين دون مراعاة السياق المحلي للمنشأة","إجراء البحث شفهياً دون توثيق مكتوب لتسريع الحصول على النتائج"],"correctText":"تصميم بحث منهجي بأدوات موثوقة وتحليل موضوعي وتوثيق كامل","feedback":"البحث التربوي الصغير يتطلب منهجية واضحة: تحديد المشكلة، تصميم أدوات جمع بيانات موثوقة، تحليل موضوعي للنتائج، وتوثيق كامل قابل للمراجعة والتحقق. هذا يحقق الأمانة العلمية وقابلية الاستفادة من النتائج.","guiding_words":"الممارسة الأدق، بحث تربوي، قضايا التدريب","context":"المجال الثالث - المعيار 8 - المعيار الفرعي 2.8 - المؤشر 1.2.8","indicator":"","scenario":""},{"id":38,"domain":"القيم والمسئوليات","domainId":3,"question":"أثناء مشاركته في مجتمع تعلم مهني، لاحظ المدرب أن بعض الزملاء يقدمون معلومات غير دقيقة تحت تأثير آراء شخصية. ما التصرف المهني الأدق؟","options":["الصمت حفاظاً على العلاقات المهنية مع الزملاء المشاركين في المجتمع","الانسحاب من المجتمع فوراً لأن مستوى الحوار غير مقبول مهنياً","التدخل بلطف لتقديم المعلومات الصحيحة مدعومة بمصادر موثوقة","الاعتماد على تصحيح المعلومات بعد انتهاء الجلسة بشكل غير رسمي وفردي"],"correctText":"التدخل بلطف لتقديم المعلومات الصحيحة مدعومة بمصادر موثوقة","feedback":"مجتمعات التعلم المهني مكان للتبادل البنّاء. التصرف السليم: التدخل المهني بلطف، وتقديم المعلومات الصحيحة مدعومة بمصادر موثوقة، مع الحفاظ على العلاقات المهنية واحترام الآراء المختلفة.","guiding_words":"التصرف المهني الأدق، مجتمع تعلم، معلومات غير دقيقة","context":"المجال الثالث - المعيار 8 - المعيار الفرعي 2.8 - المؤشر 2.2.8","indicator":"","scenario":""},{"id":39,"domain":"القيم والمسئوليات","domainId":3,"question":"ما الفائدة الجوهرية من مشاركة المدرب في مجتمعات التعلم المهني؟","options":["الحصول على شهادات حضور تُعزز السيرة الذاتية أمام الإدارة والمنشأة","الترويج الشخصي للمدرب وجذب مزيد من المتدربين لمشاريعه التدريبية","تفادي المشاركة الفردية في الأنشطة التدريبية المختلفة داخل المنشأة","تبادل الخبرات وتطوير الممارسات وبناء معرفة جماعية مستدامة"],"correctText":"تبادل الخبرات وتطوير الممارسات وبناء معرفة جماعية مستدامة","feedback":"الفائدة الجوهرية من مجتمعات التعلم: تبادل الخبرات، مناقشة القضايا المهنية، تطوير الممارسات التدريبية، وبناء معرفة جماعية مستدامة تُعزز جودة التدريب على المستوى المؤسسي والمهني.","guiding_words":"الفائدة الجوهرية، مشاركة المدرب، مجتمعات التعلم المهني","context":"المجال الثالث - المعيار 8 - المعيار الفرعي 2.8 - المؤشر 2.2.8","indicator":"","scenario":""},{"id":40,"domain":"القيم والمسئوليات","domainId":3,"question":"أي مما يلي يمثل المعيار الأخلاقي الأول في نشر نتائج أي بحث تربوي؟","options":["الدقة والصدق في عرض النتائج مع ذكر المصادر والاعتراف بالحدود","الالتزام بالمصالح التجارية للجهة الراعية للبحث قبل النشر","تجميل النتائج لتكون متوافقة مع التوقعات المسبقة للجهة الممولة","الاكتفاء بعرض النتائج الإيجابية وتجاهل النتائج السلبية"],"correctText":"الدقة والصدق في عرض النتائج مع ذكر المصادر والاعتراف بالحدود","feedback":"أخلاقيات نشر البحث التربوي تُلزم الباحث بالدقة والصدق في عرض النتائج، وتوثيق المصادر، والاعتراف بحدود البحث، وعرض النتائج الإيجابية والسلبية على حد سواء، دون تحيّز.","guiding_words":"المعيار الأخلاقي الأول، نشر نتائج البحث التربوي","context":"المجال الثالث - المعيار 8 - المعيار الفرعي 2.8 - المؤشر 1.2.8","indicator":"","scenario":""},{"id":41,"domain":"القيم والمسئوليات","domainId":3,"question":"أراد مدرب نشر نتائج بحثه التربوي في مجلة علمية محكمة، لكنه اكتشف أن نتائجه تتعارض مع توجهات الجهة التي يعمل لديها. ما التصرف المهني الأدق؟","options":["العدول عن النشر حفاظاً على العلاقة الجيدة مع جهة العمل والإدارة","تعديل النتائج لتصبح متوافقة مع توجهات الجهة قبل نشرها في المجلة","نشر النتائج كما هي دون الإشارة إلى الجهة الممولة للبحث أو الداعمة له","نشر النتائج بموضوعية مع الإفصاح عن الجهة والتزام أخلاقيات البحث"],"correctText":"نشر النتائج بموضوعية مع الإفصاح عن الجهة والتزام أخلاقيات البحث","feedback":"أخلاقيات البحث العلمي تُلزم الباحث بنشر النتائج بموضوعية كاملة، مع الإفصاح عن مصدر التمويل أو الانتماء المؤسسي، دون تعديل النتائج لتلائم توجهات معينة. الشفافية والأمانة العلمية قيمتان لا تُساوَمان.","guiding_words":"التصرف المهني الأدق، نشر نتائج البحث، تعارض مع الجهة","context":"المجال الثالث - المعيار 8 - المعيار الفرعي 2.8 - المؤشر 1.2.8","indicator":"","scenario":""},{"id":42,"domain":"القيم والمسئوليات","domainId":3,"question":"ما الفرق الجوهري بين «مجتمعات التعلم المهني» و«ورش العمل التدريبية»؟","options":["مجتمعات التعلم تبادل مستمر لمعرفة جماعية، وورش العمل فعالية محددة بمحتوى مسبق","مجتمعات التعلم مخصصة للمدربين المبتدئين فقط، وورش العمل مخصصة للمدربين الخبراء","مجتمعات التعلم تعقد إلكترونياً فقط، وورش العمل تعقد حضورياً فقط بشكل إلزامي","مجتمعات التعلم غير رسمية بالكامل، وورش العمل رسمية معتمدة من الجهات المختصة"],"correctText":"مجتمعات التعلم تبادل مستمر لمعرفة جماعية، وورش العمل فعالية محددة بمحتوى مسبق","feedback":"مجتمعات التعلم المهني هي تجمعات مستمرة لتبادل المعرفة والخبرات بشكل تشاركي عبر الزمن. ورش العمل فعاليّات محددة زمنياً بمحتوى مُعد مسبقاً وأهداف واضحة. الفرق في الاستمرارية وطبيعة المعرفة المتولدة.","guiding_words":"الفرق الجوهري، مجتمعات التعلم المهني، ورش العمل","context":"المجال الثالث - المعيار 8 - المعيار الفرعي 2.8 - المؤشر 2.2.8","indicator":"","scenario":""},{"id":43,"domain":"القيم والمسئوليات","domainId":3,"question":"أثناء مشاركة مدرب في مجتمع تعلم مهني دولي، لاحظ أن بعض الممارسات المطروحة تتعارض مع السياق الثقافي والتنظيمي المحلي. ما التصرف المهني الأدق؟","options":["رفض الممارسات كلياً لأنها غير مناسبة للسياق المحلي","تبني الممارسات كلياً لأنها من مجتمعات مهنية متقدمة عالمياً","دراسة الممارسات وتكييفها مع السياق المحلي بعد تقييم ملاءمتها","تجاهل الممارسات والاكتفاء بالمشاركة السلبية في المجتمع المهني"],"correctText":"دراسة الممارسات وتكييفها مع السياق المحلي بعد تقييم ملاءمتها","feedback":"الممارسة المهنية السليمة: دراسة الممارسات الدولية بعمق، تقييم مدى ملاءمتها للسياق الثقافي والتنظيمي المحلي، ثم تكييفها بذكاء لتحقيق الفائدة مع احترام الخصوصية المحلية.","guiding_words":"التصرف المهني الأدق، مجتمع تعلم دولي، السياق المحلي","context":"المجال الثالث - المعيار 8 - المعيار الفرعي 2.8 - المؤشر 2.2.8","indicator":"","scenario":""},{"id":44,"domain":"القيم والمسئوليات","domainId":3,"question":"أي مما يلي يمثل «مؤشراً صادقاً» على نجاح مشاركة المدرب في مجتمع تعلم مهني؟","options":["عدد ساعات الحضور أو المشاركة في اجتماعات المجتمع المهني ولقاءاته","انعكاس المعرفة المكتسبة على ممارساته التدريبية ومخرجات المتدربين","عدد الشهادات أو الوثائق التي حصل عليها من المجتمع المهني نفسه","زيادة عدد الزملاء المدربين الذين يعرفهم في المجال المهني والتدريبي"],"correctText":"انعكاس المعرفة المكتسبة على ممارساته التدريبية ومخرجات المتدربين","feedback":"المؤشر الصادق على نجاح المشاركة ليس حضوراً أو شهادات أو علاقات، بل الأثر الفعلي: تحسّن الممارسات التدريبية، وتطور مخرجات المتدربين، وانتقال المعرفة المكتسبة إلى الميدان.","guiding_words":"مؤشراً صادقاً، نجاح المشاركة، مجتمع تعلم مهني","context":"المجال الثالث - المعيار 8 - المعيار الفرعي 2.8 - المؤشر 2.2.8","indicator":"","scenario":""},{"id":45,"domain":"القيم والمسئوليات","domainId":3,"question":"ما الممارسة الأدق التي تُجسّد «التأمل الذاتي» كأداة تطوير مهني للمدرب؟","options":["الاعتماد على انطباعات المتدربين فقط لتقييم جودة الأداء التدريبي","مقارنة الأداء بأداء مدربين آخرين دون تحليل ذاتي للممارسات","الاكتفاء بتقارير الإدارة الدورية عن الأداء دون تأمل شخصي منظم","تحليل الممارسات بعد كل جلسة وتوثيق الدروس وفرص التحسين"],"correctText":"تحليل الممارسات بعد كل جلسة وتوثيق الدروس وفرص التحسين","feedback":"التأمل الذاتي المنهجي يتطلب تحليل الممارسات بعد كل جلسة، وتوثيق الدروس المستفادة، وتحديد فرص التحسين بشكل مكتوب، ثم وضع خطط عملية للتحسين. هذا هو جوهر التطوير الذاتي المستدام.","guiding_words":"الممارسة الأدق، التأمل الذاتي، التطوير المهني","context":"المجال الثالث - المعيار 8 - المعيار الفرعي 3.8 - المؤشر 1.3.8","indicator":"","scenario":""},{"id":46,"domain":"القيم والمسئوليات","domainId":3,"question":"بعد انتهاء برنامج تدريبي، شعر المدرب بأن بعض المتدربين لم يحققوا النواتج المتوقعة رغم التزامه بالخطة. ما التصرف المهني الأدق وفقاً لمنهجية التأمل الذاتي؟","options":["إرجاع السبب إلى ضعف قدرات المتدربين وعدم التزامهم بالحضور","تحميل المسؤولية للمنشأة لأنها لم توفر الظروف الملائمة للتدريب","تحليل الممارسات التدريبية الخاصة به لتحديد فرص التحسين المحتملة","الاكتفاء بتوثيق المشكلة في التقرير النهائي دون تحليل معمّق للأسباب"],"correctText":"تحليل الممارسات التدريبية الخاصة به لتحديد فرص التحسين المحتملة","feedback":"منهجية التأمل الذاتي تُلزم المدرب بالبدء بتحليل ممارساته الخاصة (التخطيط، التنفيذ، التفاعل، التقويم) لتحديد فرص التحسين، قبل إلقاء المسؤولية على أطراف أخرى. هذا هو المدخل المهني الصحيح للتطوير.","guiding_words":"التصرف المهني الأدق، التأمل الذاتي، نواتج غير محققة","context":"المجال الثالث - المعيار 8 - المعيار الفرعي 3.8 - المؤشر 1.3.8","indicator":"","scenario":""},{"id":47,"domain":"القيم والمسئوليات","domainId":3,"question":"أي مما يلي يمثل «مصدراً موثوقاً» لجمع التغذية الراجعة لتحديد احتياجات التطوير المهني للمدرب؟","options":["تغذية راجعة من المتدربين والمشرفين والزملاء وبيانات الأداء الفعلي","انطباعات شخصية من بعض الزملاء دون بيانات موضوعية أو تحليل منهجي","توقعات الإدارة العليا المبنية على معايير عامة دون تحليل ميداني فعلي","معايير مقارنة بسيطة مع مدربين آخرين دون مراعاة ظروف كل مدرب"],"correctText":"تغذية راجعة من المتدربين والمشرفين والزملاء وبيانات الأداء الفعلي","feedback":"المصادر الموثوقة لتحديد احتياجات التطوير المهني تتعدد: تغذية راجعة من المتدربين (المستفيدين)، والمشرفين (المقيمين الأقرب)، والزملاء (الأقران)، وتحليل بيانات الأداء الفعلي. هذا يضمن صورة شاملة وموضوعية.","guiding_words":"مصدراً موثوقاً، التغذية الراجعة، احتياجات التطوير المهني","context":"المجال الثالث - المعيار 8 - المعيار الفرعي 3.8 - المؤشر 2.3.8","indicator":"","scenario":""},{"id":48,"domain":"القيم والمسئوليات","domainId":3,"question":"ما التصرف المهني الأدق عند اكتشاف المدرب أن أداءه في جانب معين (مثل إدارة التفاعل) أدنى من المستوى المطلوب مقارنة بمعايير الأداء المهني؟","options":["تجنب الجانب الضعيف والتركيز على نقاط القوة لإظهار أداء أفضل أمام المتدربين","الاعتراف بالموضوع وتحليل أسبابه والسعي لتطوير مستهدف ومتابعته","المقارنة بالمدربين الأقل أداءً لإشعار النفس بالرضا النسبي عن مستواه","تجاهل الفجوة لأن كل مدرب له نقاط قوة وضعف بطبيعته ولا داعي للتطوير"],"correctText":"الاعتراف بالموضوع وتحليل أسبابه والسعي لتطوير مستهدف ومتابعته","feedback":"الممارسة المهنية السليمة: الاعتراف بالموضوع (الاعتراف بالأداء الضعيف)، تحليل الأسباب الجذرية، البحث عن تطوير مستهدف (دورات، مراقبة، تدريب ميداني)، ومتابعة التحسن عبر الزمن.","guiding_words":"التصرف المهني الأدق، أداء أدنى من المعيار، التطوير المستهدف","context":"المجال الثالث - المعيار 8 - المعيار الفرعي 3.8 - المؤشر 2.3.8","indicator":"","scenario":""},{"id":49,"domain":"القيم والمسئوليات","domainId":3,"question":"ما العلاقة الجوهرية بين «التأمل الذاتي» و«خطة التطوير المهني»؟","options":["لا توجد علاقة بينهما؛ فهما نشاطان منفصلان تماماً في الممارسة المهنية","خطة التطوير تسبق التأمل الذاتي دائماً ولا تعتمد عليه في أي مرحلة","التأمل الذاتي يُنتج تشخيصاً للفجوات يُغذي خطة التطوير المهني","التأمل الذاتي بديل كامل عن خطة التطوير المهني عند ضيق الوقت"],"correctText":"التأمل الذاتي يُنتج تشخيصاً للفجوات يُغذي خطة التطوير المهني","feedback":"التأمل الذاتي المنهجي يُنتج تشخيصاً واقعياً للفجوات والاحتياجات التطويرية، وهذا التشخيص هو الأساس الذي تُبنى عليه خطة التطوير المهني. العلاقة تبادلية: التأمل يُحدد الاحتياج، والخطة تُترجمه إلى إجراءات عملية.","guiding_words":"العلاقة الجوهرية، التأمل الذاتي، خطة التطوير المهني","context":"المجال الثالث - المعيار 8 - المعيار الفرعي 3.8 - المؤشر 3.3.8","indicator":"","scenario":""},{"id":50,"domain":"القيم والمسئوليات","domainId":3,"question":"أثناء قيام المدرب بمراجعة تسجيل جلسة تدريبية سابقة له لأغراض التأمل الذاتي، لاحظ بعض الملاحظات المهمة. ما الممارسة الأدق للاستفادة منها؟","options":["تدوينها بشكل عابر دون تنظيم أو تصنيف للاستفادة منها مستقبلاً","الاكتفاء بتذكرها ذهنياً دون توثيق مكتوب لها في أي ملف مهني","مناقشتها مع الزملاء شفهياً دون ربطها بخطة تطوير مهني محددة","توثيقها في ملف منظّم وتحويلها إلى فرص تحسين قابلة للقياس"],"correctText":"توثيقها في ملف منظّم وتحويلها إلى فرص تحسين قابلة للقياس","feedback":"الممارسة الأدق: توثيق الملاحظات في ملف مهني منظّم، وتحويلها إلى فرص تحسين محددة قابلة للقياس والمتابعة، ودمجها في خطة التطوير المهني. هذا يُحوّل التأمل من نشاط عابر إلى أداة تطوير فاعلة.","guiding_words":"الممارسة الأدق، مراجعة التسجيل، التأمل الذاتي","context":"المجال الثالث - المعيار 8 - المعيار الفرعي 3.8 - المؤشر 3.3.8","indicator":"","scenario":""},{"id":51,"domain":"القيم والمسئوليات","domainId":3,"question":"ما الأثر المتوقع على المدرب الذي يمارس التأمل الذاتي بشكل منتظم ومنهجي؟","options":["تحسّن مستمر في جودة الممارسات ورضا المتدربين ومخرجات التعلم","زيادة شعور المدرب بالإرهاق النفسي بسبب النقد الذاتي المستمر لأدائه","انخفاض الثقة بالنفس لأن التأمل يُبرز نقاط الضعف باستمرار لدى المدرب","الاعتماد على الذات فقط دون الحاجة إلى التغذية الراجعة الخارجية أبداً"],"correctText":"تحسّن مستمر في جودة الممارسات ورضا المتدربين ومخرجات التعلم","feedback":"التأمل الذاتي المنتظم والمنهجي يؤدي إلى تحسّن مستمر في جودة الممارسات التدريبية، وارتفاع رضا المتدربين، وتحسن مخرجات التعلم. الأثر تراكمي وإيجابي على المدى الطويل.","guiding_words":"الأثر المتوقع، التأمل الذاتي المنتظم، الممارسات التدريبية","context":"المجال الثالث - المعيار 8 - المعيار الفرعي 3.8 - المؤشر 1.3.8","indicator":"","scenario":""},{"id":52,"domain":"القيم والمسئوليات","domainId":3,"question":"أي مما يلي يمثل الممارسة الأكثر توافقاً مع «التأمل الذاتي الفعّال» في التدريب؟","options":["مراجعة الجلسات بعد أسابيع من تنفيذها دون تدوين ملاحظات فورية عنها","تدوين الملاحظات بعد كل جلسة مباشرة مع تحديد مواطن القوة والتحسين","الاعتماد على ذاكرة المدرب دون توثيق مكتوب للملاحظات أو الدروس","الاكتفاء بالتأمل في نهاية السنة التدريبية الشاملة مرة واحدة فقط"],"correctText":"تدوين الملاحظات بعد كل جلسة مباشرة مع تحديد مواطن القوة والتحسين","feedback":"التأمل الذاتي الفعّال يتطلب تدوين الملاحظات مباشرة بعد كل جلسة، وربطها بمواقف محددة، وتحديد مواطن القوة والتحسين فوراً، لأن الذاكرة تتلاشى، والانطباعات الحديثة أكثر دقة.","guiding_words":"الممارسة الأكثر توافقاً، التأمل الذاتي الفعّال","context":"المجال الثالث - المعيار 8 - المعيار الفرعي 3.8 - المؤشر 1.3.8","indicator":"","scenario":""},{"id":53,"domain":"القيم والمسئوليات","domainId":3,"question":"ما المكونات الأساسية لخطة التطوير المهني المستمر للمدرب؟","options":["أهداف مالية ورغبات شخصية وتفضيلات المدرب دون ربط بالمعايير المهنية","حضور أكبر عدد من الدورات دون تحليل الاحتياجات أو متابعة الأثر","قائمة بأنشطة متفرقة دون ترتيب زمني أو مؤشرات قياس للتقدم","أهداف قابلة للقياس ومسارات تطويرية ومؤشرات متابعة ومراجعة دورية"],"correctText":"أهداف قابلة للقياس ومسارات تطويرية ومؤشرات متابعة ومراجعة دورية","feedback":"خطة التطوير المهني الفعّالة تتضمن: أهدافاً واضحة قابلة للقياس، مسارات تطويرية محددة، أنشطة تنفيذية، مؤشرات متابعة، وتقويم دوري للتقدم. هذا يحوّل الخطة من رغبات عامة إلى خارطة عمل مؤسسية.","guiding_words":"المكونات الأساسية، خطة التطوير المهني المستمر","context":"المجال الثالث - المعيار 8 - المعيار الفرعي 3.8 - المؤشر 3.3.8","indicator":"","scenario":""},{"id":54,"domain":"القيم والمسئوليات","domainId":3,"question":"أثناء إعداد خطة تطوير مهني، اكتشف المدرب أن احتياجاته التطويرية أكبر من الميزانية والوقت المتاحين. ما التصرف المهني الأدق؟","options":["تأجيل الخطة بالكامل حتى تتوفر الميزانية المطلوبة للتنفيذ الكامل","تنفيذ أنشطة عشوائية متفرقة دون أولويات محددة أو ترتيب منطقي","ترتيب الاحتياجات حسب الأولوية والتنفيذ التدريجي ضمن الموارد","اختيار الأنشطة الأقل تكلفة دون النظر إلى الأولويات التطويرية للمدرب"],"correctText":"ترتيب الاحتياجات حسب الأولوية والتنفيذ التدريجي ضمن الموارد","feedback":"الممارسة السليمة: ترتيب الاحتياجات التطويرية حسب الأولوية (الأهم والأكثر إلحاحاً أولاً)، والتنفيذ التدريجي ضمن الموارد المتاحة، مع مراجعة الخطة دورياً. هذا يحقق تقدماً ملموساً بدلاً من تعليق التطوير كلياً.","guiding_words":"التصرف المهني الأدق، خطة تطوير، محدودية الموارد","context":"المجال الثالث - المعيار 8 - المعيار الفرعي 3.8 - المؤشر 3.3.8","indicator":"","scenario":""},{"id":55,"domain":"القيم والمسئوليات","domainId":3,"question":"ما الأداة الأدق لتقويم مدى تحقيق خطة التطوير المهني المستمر أثرها المتوقع؟","options":["مؤشرات أداء محددة مسبقاً مع مقارنة دورية بين الأهداف والنتائج","عدد الشهادات التي حصل عليها المدرب خلال فترة الخطة التطويرية","انطباعات المدرب الشخصية حول مدى استفادته من الأنشطة التي حضرها","عدد الأنشطة التي أُنجزت دون تحليل للأثر على الممارسة الفعلية"],"correctText":"مؤشرات أداء محددة مسبقاً مع مقارنة دورية بين الأهداف والنتائج","feedback":"التقويم الفعّال لخطة التطوير المهني يعتمد على: مؤشرات أداء واضحة محددة مسبقاً، مقارنة دورية بين الأهداف والنتائج، وقياس الأثر على الممارسة التدريبية الفعلية. هذا يُحوّل الخطة إلى نظام قياس قابل للتحقق.","guiding_words":"الأداة الأدق، تقويم خطة التطوير، الأثر المتوقع","context":"المجال الثالث - المعيار 8 - المعيار الفرعي 3.8 - المؤشر 4.3.8","indicator":"","scenario":""},{"id":56,"domain":"القيم والمسئوليات","domainId":3,"question":"أثناء تنفيذ خطة التطوير المهني، لاحظ المدرب أن بعض الأنشطة المخططة لم تُحقق الأثر المتوقع. ما التصرف المهني الأدق؟","options":["الاستمرار في الأنشطة كما هي لأنها خطط معتمدة مسبقاً من الجهة","تحليل أسباب ضعف الأثر وتعديل الخطة بناءً على النتائج الفعلية","إلغاء الخطة بالكامل والبحث عن خطة جديدة تماماً من الصفر","تجاهل النتائج والاعتماد على الانطباعات الشخصية في التقويم والمتابعة"],"correctText":"تحليل أسباب ضعف الأثر وتعديل الخطة بناءً على النتائج الفعلية","feedback":"الممارسة السليمة: تحليل أسباب عدم تحقيق الأثر، وإعادة تعديل الخطة بناءً على النتائج الفعلية. هذا يُجسّد مبدأ التحسين المستمر (PDCA)، ويعزز فاعلية الخطة.","guiding_words":"التصرف المهني الأدق، خطة تطوير، عدم تحقيق الأثر","context":"المجال الثالث - المعيار 8 - المعيار الفرعي 3.8 - المؤشر 4.3.8","indicator":"","scenario":""},{"id":57,"domain":"القيم والمسئوليات","domainId":3,"question":"أي مما يلي يمثل «مؤشراً نوعياً» على نجاح التطوير المهني للمدرب في ممارساته؟","options":["عدد الساعات التدريبية المُنجزة في الخطة السنوية للتطوير المهني","عدد الشهادات المكتسبة خلال فترة الخطة من الجهات المانحة","عدد الأنشطة المتعلقة بالخطة التي أُنجزت خلال الفترة المحددة","تحسن تفاعل المتدربين ورضاهم وقدرتهم على نقل أثر التدريب"],"correctText":"تحسن تفاعل المتدربين ورضاهم وقدرتهم على نقل أثر التدريب","feedback":"المؤشرات النوعية تقيس جوهر الأثر: تحسن تفاعل المتدربين، ارتفاع رضاهم، وقدرتهم على نقل أثر التدريب إلى الميدان. هذه مؤشرات جوهرية تعكس جودة التطوير لا كميته.","guiding_words":"مؤشراً نوعياً، نجاح التطوير المهني، الممارسات","context":"المجال الثالث - المعيار 8 - المعيار الفرعي 3.8 - المؤشر 4.3.8","indicator":"","scenario":""},{"id":58,"domain":"القيم والمسئوليات","domainId":3,"question":"ما الممارسة الأدق لضمان استدامة التطوير المهني للمدرب على المدى الطويل؟","options":["دمج التطوير المهني في الممارسة اليومية مع مراجعة دورية للخطة","الاعتماد على الدورات المكثفة في فترات متباعدة فقط دون متابعة","الاكتفاء بحضور المؤتمرات السنوية الكبرى دون أنشطة يومية مستمرة","تنفيذ خطة تطوير شاملة مرة كل خمس سنوات بشكل مكثف وسريع"],"correctText":"دمج التطوير المهني في الممارسة اليومية مع مراجعة دورية للخطة","feedback":"الاستدامة تتحقق بدمج التطوير المهني في الممارسة اليومية بشكل مستمر (قراءة، تأمل، تجريب، تبادل)، مع مراجعة دورية للخطة لضمان استمرارية الملاءمة والتحسين.","guiding_words":"الممارسة الأدق، استدامة التطوير المهني، المدى الطويل","context":"المجال الثالث - المعيار 8 - المعيار الفرعي 3.8 - المؤشر 3.3.8","indicator":"","scenario":""},{"id":59,"domain":"القيم والمسئوليات","domainId":3,"question":"ما العلاقة الجوهرية بين «خطة التطوير المهني» و«التطوير المؤسسي» في المنشأة؟","options":["لا توجد علاقة بينهما؛ كلاهما نشاط منفصل تماماً عن الآخر في المنشأة","خطة التطوير الفردي تُسهم في التطوير المؤسسي برفع كفاءة المدربين","التطوير المؤسسي يُلغي الحاجة إلى الخطط الفردية للمدربين داخل المنشأة","خطة التطوير الفردي تنفذ تلقائياً دون ربط بأهداف المنشأة ورؤيتها"],"correctText":"خطة التطوير الفردي تُسهم في التطوير المؤسسي برفع كفاءة المدربين","feedback":"العلاقة تبادلية وتكاملية: خطة التطوير الفردي للمدرب تُسهم في التطوير المؤسسي عبر رفع كفاءة المدربين وتحسين جودة مخرجاتهم، والتطوير المؤسسي يخلق بيئة داعمة للتطوير الفردي.","guiding_words":"العلاقة الجوهرية، خطة التطوير المهني، التطوير المؤسسي","context":"المجال الثالث - المعيار 8 - المعيار الفرعي 3.8 - المؤشر 3.3.8","indicator":"","scenario":""},{"id":60,"domain":"القيم والمسئوليات","domainId":3,"question":"أي مما يلي يمثل «التوصية المنهجية الأصح» لمدرب يرغب في تحديث خطة تطويره المهني بعد خمس سنوات من الممارسة؟","options":["الاحتفاظ بالخطة القديمة لأنها أثبتت فعاليتها في الماضي وما زالت تكفي","إلغاء الخطة القديمة والبدء بخطة جديدة معدّة بالكامل من الصفر دون الرجوع لها","مراجعة الخطة القديمة وتحليل الفجوات الجديدة وتحديثها وفق المعايير","طلب خطة جاهزة من الزملاء ذوي الخبرة لتنفيذها كما هي دون تعديل"],"correctText":"مراجعة الخطة القديمة وتحليل الفجوات الجديدة وتحديثها وفق المعايير","feedback":"التوصية السليمة: مراجعة شاملة للخطة القديمة، تحليل الفجوات الجديدة التي ظهرت خلال خمس سنوات، وإعادة تحديث الخطة وفق المعايير الحالية والمتطلبات المستجدة. هذا نهج متوازن يحفظ المكتسبات ويواكب التطورات.","guiding_words":"التوصية المنهجية الأصح، تحديث خطة التطوير، خمس سنوات","context":"المجال الثالث - المعيار 8 - المعيار الفرعي 3.8 - المؤشر 3.3.8","indicator":"","scenario":""}]
+</script>
+<script>
+const DEFAULT_BANK = JSON.parse(document.getElementById('bank-data').textContent);
+const PASS=55; const letters=['أ','ب','ج','د'];
+let BANK=DEFAULT_BANK.slice();
+// Safe storage: localStorage may be blocked in sandboxed content:// / iframe
+const _memStore = {};
+function safeGet(key, fallback){
+  try { return localStorage.getItem(key); } catch(e) { return _memStore[key] ?? null; }
+}
+function safeSet(key, val){
+  try { localStorage.setItem(key, val); } catch(e) { _memStore[key] = val; }
+}
+let prefs = {};
+try { prefs = JSON.parse(safeGet('golden60_d3_prefs') || '{}') || {}; } catch(e) { prefs = {}; }
+let session=[], answers={}, cur=0, timer=null, timeLeft=60, qFontScale=1, sessionSize=60;
+let soundOn = prefs.sound !== false;
+function savePrefs(){ safeSet('golden60_d3_prefs', JSON.stringify(prefs)); }
+function applyPrefs(){
+  const font=prefs.font||'Tajawal', fs=prefs.fs||16;
+  document.documentElement.style.setProperty('--font',font+',system-ui,sans-serif');
+  document.documentElement.style.setProperty('--fs',fs+'px');
+  document.querySelectorAll('#fontSel,#fontHome').forEach(el=>{if(el)el.value=font;});
+  document.querySelectorAll('#soundSel,#soundHome').forEach(el=>{if(el)el.checked=soundOn;});
+  const _ts=document.getElementById('timerSec'); if(prefs.timer && _ts) _ts.value=prefs.timer;
+}
+function shuffle(a){const x=a.slice();for(let i=x.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[x[i],x[j]]=[x[j],x[i]];}return x;}
+function balanceLetters(list){
+  const counts=[0,0,0,0];
+  list.forEach(q=>{
+    let best=0,min=counts[0];
+    for(let i=1;i<4;i++) if(counts[i]<min){min=counts[i];best=i;}
+    const opts=(q.options||[]).slice();
+    const ci=opts.indexOf(q.correctText);
+    if(ci<0){counts[best]++;return;}
+    [opts[ci],opts[best]]=[opts[best],opts[ci]];
+    q.options=opts; counts[best]++;
+  });
+}
+function buildSession(n){
+  sessionSize=n||BANK.length;
+  let picked=shuffle(BANK).slice(0, Math.min(sessionSize, BANK.length));
+  // keep id order option for full 60 sequential review? User asked shuffle - use shuffle
+  session=picked.map(q=>{
+    // For questions where we fixed letter د, preserve option order if full fixed bank order desired
+    // Still shuffle others then rebalance
+    return {...q, options:shuffle((q.options||[]).slice())};
+  });
+  balanceLetters(session);
+  answers={}; cur=0; renderCards();
+}
+function beep(){
+  if(!soundOn) return;
+  try{const ctx=new(window.AudioContext||window.webkitAudioContext)();const o=ctx.createOscillator(),g=ctx.createGain();
+    o.connect(g);g.connect(ctx.destination);o.frequency.value=880;g.gain.value=0.05;o.start();
+    setTimeout(()=>{o.stop();ctx.close();},180);}catch(e){}
+}
+// —— القراءة الليلية ——
+(function(){
+  const n=safeGet('nightMode');
+  if(n==='1') document.body.classList.add('night');
+})();
+const btnNight=document.getElementById('btnNight');
+if(btnNight){ btnNight.textContent=document.body.classList.contains('night')?'☀️':'🌙'; }
+if(btnNight){ btnNight.onclick=()=>{
+  document.body.classList.toggle('night');
+  safeSet('nightMode', document.body.classList.contains('night')?'1':'0');
+  btnNight.textContent=document.body.classList.contains('night')?'☀️':'🌙';
+}; }
+
+// —— حماية تبويب البنك ——
+let bankUnlocked=false;
+function unlockBankUI(){
+  bankUnlocked=true;
+  const g=document.getElementById('bankGateCard');
+  const p=document.getElementById('bankPanel');
+  if(g) g.classList.add('hidden');
+  if(p) p.classList.remove('hidden');
+  renderBank();
+}
+function lockBankUI(){
+  bankUnlocked=false;
+  const g=document.getElementById('bankGateCard');
+  const p=document.getElementById('bankPanel');
+  if(g) g.classList.remove('hidden');
+  if(p) p.classList.add('hidden');
+}
+const btnBankUnlock=document.getElementById('btnBankUnlock');
+if(btnBankUnlock){ btnBankUnlock.onclick=()=>{
+  const v=(document.getElementById('bankPassInput')||{}).value||'';
+  if(v==='Arams@2023'){ unlockBankUI(); document.getElementById('bankGateMsg').textContent=''; }
+  else { document.getElementById('bankGateMsg').textContent='كلمة المرور غير صحيحة'; }
+}; }
+document.getElementById('bankPassInput')&&document.getElementById('bankPassInput').addEventListener('keydown',e=>{ if(e.key==='Enter') btnBankUnlock&&btnBankUnlock.click(); });
+
+// —— تصدير PDF داخلي (طباعة / حفظ كـ PDF) ——
+
+function showView(name){
+  if(name==='bank' && !bankUnlocked){
+    lockBankUI();
+  }
+  ['home','exam','cards','bank'].forEach(v=>{const el=document.getElementById('view-'+v); if(el) el.classList.toggle('hidden',v!==name);});
+  document.querySelectorAll('.nav button[data-view]').forEach(b=>b.classList.toggle('active',b.getAttribute('data-view')===name));
+  if(name==='bank' && bankUnlocked) renderBank();
+  if(name==='cards') renderCards();
+}
+document.querySelectorAll('[data-view]').forEach(b=>b.addEventListener('click',()=>showView(b.getAttribute('data-view'))));
+document.querySelectorAll('[data-fs]').forEach(b=>b.onclick=()=>{prefs.fs=+b.getAttribute('data-fs');savePrefs();applyPrefs();});
+document.getElementById('fontHome').onchange=e=>{prefs.font=e.target.value;savePrefs();applyPrefs();};
+document.getElementById('soundHome').onchange=e=>{soundOn=e.target.checked;prefs.sound=soundOn;savePrefs();};
+function timerDefault(){return +(prefs.timer||60);}
+function startQuestion(){
+  stopTimer();
+  document.getElementById('resultBox').classList.add('hidden');
+  document.getElementById('qBox').classList.remove('hidden');
+  const nb=document.getElementById('navBottom'); if(nb) nb.classList.remove('hidden');
+  timeLeft=timerDefault(); updateTimer();
+  timer=setInterval(()=>{timeLeft--;updateTimer();if(timeLeft<=0){beep();if(answers[cur]==null)answers[cur]={choice:null,status:'time'};goNext();}},1000);
+  renderMap(); renderQuestion();
+}
+function stopTimer(){if(timer){clearInterval(timer);timer=null;}}
+function updateTimer(){const el=document.getElementById('timer');el.textContent=timeLeft;el.classList.toggle('warn',timeLeft<=10);}
+function renderMap(){
+  const m=document.getElementById('qMap');
+  m.innerHTML=session.map((_,i)=>{
+    const a=answers[i]; let cls=i===cur?'cur':'';
+    if(a) cls+=' '+(a.status==='ok'?'ok':a.status==='bad'?'bad':a.status==='time'?'time':'skip');
+    return `<button type="button" class="${cls}" data-i="${i}">${i+1}</button>`;
+  }).join('');
+  m.querySelectorAll('button').forEach(b=>b.onclick=()=>{cur=+b.dataset.i;startQuestion();});
+}
+function renderQuestion(){
+  const q=session[cur]; if(!q) return;
+  const domainChip=(q.domain||'').trim()||'';
+  document.getElementById('qProgress').innerHTML=`سؤال ${cur+1} / ${session.length}`+(domainChip?` <span class="chip">${domainChip}</span>`:'');
+  const prev=answers[cur];
+  const box=document.getElementById('qBox');
+  box.style.fontSize=(qFontScale*100)+'%';
+  let extra='';
+  if(prev && (prev.status==='ok'||prev.status==='bad')){
+    extra=`<div class="fb"><b>التوضيح:</b> ${q.feedback||''}<br><span class="muted">${q.context||''}</span>${q.guiding_words?`<br><b>كلمات مرشدة:</b> ${q.guiding_words}`:''}</div>`;
+  }
+  const opts=q.options||[];
+  box.innerHTML=`<p class="qtext">${q.question}</p>
+    <div class="options">${opts.map((o,i)=>{
+      let cls='opt';
+      if(prev && (prev.status==='ok'||prev.status==='bad')){
+        if(o===q.correctText) cls+=' ok';
+        else if(prev.choice===i) cls+=' bad';
+      } else if(prev && prev.choice===i){
+        cls+=' selected';
+      }
+      return `<div class="${cls}" data-i="${i}"><span class="key">${letters[i]}</span><span>${o}</span></div>`;
+    }).join('')}</div>${extra}`;
+  box.querySelectorAll('.opt').forEach(el=>{
+    el.onclick=()=>{
+      if(answers[cur] && (answers[cur].status==='ok'||answers[cur].status==='bad')) return;
+      const i=+el.dataset.i;
+      const ok = (opts[i]===q.correctText);
+      answers[cur]={choice:i,status: ok?'ok':'bad'};
+      renderMap(); renderQuestion();
+    };
+  });
+}
+
+function goNext(){stopTimer();if(answers[cur]==null)answers[cur]={choice:null,status:'skip'};if(cur<session.length-1){cur++;startQuestion();}else showResults();}
+function goPrev(){stopTimer();if(cur>0){cur--;startQuestion();}}
+document.getElementById('btnStart60').onclick=()=>{buildSession(60);showView('exam');startQuestion();};
+document.getElementById('btnStart40').onclick=()=>{buildSession(40);showView('exam');startQuestion();};
+document.getElementById('btnStart20').onclick=()=>{buildSession(20);showView('exam');startQuestion();};
+document.getElementById('btnShuffle').onclick=()=>{buildSession(sessionSize||60);alert('تم خلط جلسة جديدة.');};
+document.getElementById('btnPrev').onclick=()=>goPrev();
+document.getElementById('btnNext').onclick=()=>goNext();
+document.getElementById('btnFinish').onclick=()=>{stopTimer();showResults();};
+document.getElementById('btnHomeExam').onclick=()=>{stopTimer();showView('home');};
+document.getElementById('btnHomeCards').onclick=()=>showView('home');
+document.getElementById('btnRefreshCards').onclick=()=>renderCards();
+document.getElementById('btnAplus').onclick=()=>{qFontScale=Math.min(1.6,qFontScale+0.1);renderQuestion();};
+document.getElementById('btnAminus').onclick=()=>{qFontScale=Math.max(0.8,qFontScale-0.1);renderQuestion();};
+document.getElementById('btnCopy').onclick=()=>{
+  const q=session[cur]; if(!q) return;
+  const letters=['أ','ب','ج','د'];
+  const opts=(q.options||[]).map((o,i)=>letters[i]+') '+o).join('\n');
+  const text=(q.question||'').trim()+'\n\n'+opts;
+  const done=()=>alert('تم نسخ السؤال والخيارات الأربع');
+  const fallback=()=>{
+    try{
+      const ta=document.createElement('textarea');
+      ta.value=text;
+      ta.setAttribute('readonly','');
+      ta.style.position='fixed'; ta.style.top='0'; ta.style.left='0';
+      ta.style.width='1px'; ta.style.height='1px'; ta.style.opacity='0';
+      document.body.appendChild(ta);
+      ta.focus(); ta.select(); ta.setSelectionRange(0, text.length);
+      const ok=document.execCommand('copy');
+      document.body.removeChild(ta);
+      if(ok){ done(); return; }
+    }catch(e){}
+    // last resort: full-text dialog
+    const w=window.open('','_blank','width=480,height=640');
+    if(w){
+      w.document.write('<html dir="rtl"><head><meta charset="utf-8"><title>نسخ السؤال</title></head><body style="font-family:Tahoma,sans-serif;padding:16px;white-space:pre-wrap;line-height:1.8"></body></html>');
+      w.document.body.textContent=text;
+      w.document.close();
+      alert('تعذّر النسخ التلقائي. ظهرت نافذة بالنص الكامل — حدّد الكل وانسخ.');
+    } else {
+      alert('تعذّر النسخ في هذا السياق. الصق يدويًا من نافذة النص إن ظهرت.');
+    }
+  };
+  if(navigator.clipboard && window.isSecureContext){
+    navigator.clipboard.writeText(text).then(done).catch(fallback);
+  } else {
+    fallback();
+  }
+};
+document.getElementById('btnTTS').onclick=()=>{
+  const q=session[cur]; if(!q) return;
+  if(!('speechSynthesis' in window)||typeof SpeechSynthesisUtterance==='undefined'){ alert('القراءة الصوتية غير مدعومة في هذا المتصفح'); return; }
+  const u=new SpeechSynthesisUtterance(q.question+'. '+(q.options||[]).map((o,i)=>letters[i]+': '+o).join('. '));
+  u.lang='ar-SA'; speechSynthesis.cancel(); speechSynthesis.speak(u);
+};
+function showResults(){
+  stopTimer();
+  document.getElementById('qBox').classList.add('hidden');
+  const nb=document.getElementById('navBottom'); if(nb) nb.classList.add('hidden');
+  const box=document.getElementById('resultBox'); box.classList.remove('hidden');
+  let ok=0,bad=0,time=0,skip=0;
+  session.forEach((_,i)=>{const a=answers[i];if(!a||a.status==='skip')skip++;else if(a.status==='time')time++;else if(a.status==='ok')ok++;else bad++;});
+  const pct=Math.round(100*ok/session.length), pass=pct>=PASS;
+  box.innerHTML=`<h2 style="margin-top:0">نتيجة الاختبار</h2>
+    <div class="grid3">
+      <div class="stat"><b>${ok}</b><span class="muted">صحيح</span></div>
+      <div class="stat"><b>${bad}</b><span class="muted">خطأ</span></div>
+      <div class="stat"><b>${pct}%</b><span class="muted">${pass?'اجتياز':'لم يتحقق'} (${PASS}٪)</span></div>
+    </div>
+    <p class="muted">انتهى الوقت: ${time} · تخطّي: ${skip}</p>
+    <div class="toolbar">
+      <button class="btn primary" type="button" id="btnRetake">إعادة بخلط</button>
+      <button class="btn" type="button" id="btnExportReport" style="color:#1e293b;border-color:var(--line);background:#fff">تصدير التقرير</button>
+      ${pass?`<button class="btn" type="button" id="btnCert" style="color:#1e293b;border-color:var(--line);background:#fff">تحميل الشهادة</button>`:''}
+    </div>
+    <h3>مراجعة</h3>
+    ${session.map((q,i)=>{
+      const a=answers[i];
+      const st=!a?'تخطّي':a.status==='ok'?'صحيح':a.status==='bad'?'خطأ':a.status==='time'?'انتهى الوقت':'تخطّي';
+      const chosen=a&&a.choice!=null?q.options[a.choice]:'—';
+      return `<div style="border:1px solid var(--line);border-radius:12px;padding:10px;margin:8px 0">
+        <b>س${i+1}</b> <span class="muted">— ${st}</span>
+        <p style="margin:6px 0">${q.question}</p>
+        <p class="muted">إجابتك: ${chosen}</p>
+        <p>الصحيحة: ${q.correctText||''}</p>
+        <p class="muted">${q.feedback||''}</p>
+      </div>`;
+    }).join('')}`;
+  document.getElementById('btnRetake').onclick=()=>{buildSession(sessionSize);startQuestion();};
+  document.getElementById('btnExportReport').onclick=exportReport;
+  const bc=document.getElementById('btnCert'); if(bc) bc.onclick=()=>downloadCert(pct);
+  renderMap();
+}
+function exportReport(){
+  let ok=session.filter((_,i)=>answers[i]&&answers[i].status==='ok').length;
+  const pct=Math.round(100*ok/session.length);
+  let t=`تقرير الستون الذهبية — المجال الثالث\nالتاريخ: ${new Date().toLocaleString('ar-SA')}\nالنتيجة: ${ok}/${session.length} (${pct}%)\n\n`;
+  session.forEach((q,i)=>{const a=answers[i]; t+=`${i+1}) ${q.question}\nالصحيحة: ${q.correctText}\nالحالة: ${a?a.status:'skip'}\n\n`;});
+  downloadBlob(t,'تقرير_الستون_الذهبية_المجال_الثالث.txt','text/plain;charset=utf-8');
+}
+function renderCards(){
+  const list=session.length?session:BANK;
+  document.getElementById('cardsInfo').textContent=`عرض ${list.length} بطاقة.`;
+  const g=document.getElementById('cardsGrid');
+  g.innerHTML=list.map(q=>`<div class="flip"><div class="flip-inner">
+    <div class="face front"><h4>#${q.id} · ${q.unit||''}</h4><div>${q.question}</div></div>
+    <div class="face back"><h4>الإجابة</h4><div style="font-weight:700;margin-bottom:6px">${q.correctText||''}</div><div class="muted">${q.feedback||''}</div></div>
+  </div></div>`).join('');
+  g.querySelectorAll('.flip').forEach(el=>el.onclick=()=>el.classList.toggle('flipped'));
+}
+function bankExportPayload(list){
+  return {meta:{title:'الستون الذهبية — المجال الثالث',exportedAt:new Date().toISOString(),count:list.length,passMark:PASS,preparedBy:'إعداد المهندس سمير حبيب بنتن'},
+    questions:list.map((q,i)=>({id:q.id||i+1,domain:q.domain||'القيم والمسئوليات',unit:q.unit||'',level:q.level||'',question:q.question,options:q.options||[],correctText:q.correctText||'',feedback:q.feedback||'',guiding_words:q.guiding_words||'',context:q.context||'',pattern:q.pattern||''}))};
+}
+function exportBank(list,name){downloadBlob(bankExportPayload(list), name||'الستون_الذهبية_المجال_الثالث.json','application/json');}
+document.getElementById('btnExportBank').onclick=()=>exportBank(BANK);
+document.getElementById('btnExportBankPdf').onclick=()=>exportBankPdf(BANK, document.title||'بنك الأسئلة');
+
+document.getElementById('btnExportSession').onclick=()=>{if(!session.length) buildSession(60); exportBank(session,'جلسة_الستون_الذهبية_المجال_الثالث.json');};
+function handleImport(file){
+  if(!file) return;
+  const reader=new FileReader();
+  reader.onload=()=>{
+    try{
+      const data=JSON.parse(reader.result);
+      let list=Array.isArray(data)?data:(data.questions||[]);
+      BANK=list.map((q,i)=>({
+        id:q.id||i+1, domain:q.domain||'القيم والمسئوليات', unit:q.unit||'', level:q.level||'',
+        question:q.question||'', options:(q.options||[]).map(o=>typeof o==='string'?o:(o.text||'')),
+        correctText:q.correctText||'', feedback:q.feedback||q.explainCorrect||'',
+        guiding_words:q.guiding_words||'', context:q.context||'', pattern:q.pattern||''
+      })).filter(q=>q.question&&q.options.length>=2);
+      buildSession(Math.min(60,BANK.length)); renderBank();
+      alert('تم استيراد '+BANK.length+' سؤالًا');
+    }catch(e){alert('فشل الاستيراد: '+e.message);}
+  };
+  reader.readAsText(file,'utf-8');
+}
+document.getElementById('importFile').onchange=e=>handleImport(e.target.files[0]);
+
+// —— حجم الخط 5 مستويات ——
+const FONT_STEPS=[14,15,16,18,20];
+function currentFontStep(){
+  const fs=+(prefs.fs||16);
+  let best=2;
+  FONT_STEPS.forEach((v,i)=>{ if(Math.abs(v-fs)<=Math.abs(FONT_STEPS[best]-fs)) best=i; });
+  return best;
+}
+function applyFontStep(step){
+  step=Math.max(0, Math.min(FONT_STEPS.length-1, step));
+  prefs.fs=FONT_STEPS[step];
+  savePrefs(); applyPrefs();
+  const lab=document.getElementById('fontStepLabel');
+  if(lab) lab.textContent=(step+1)+'/5';
+}
+function bindFontButtons(){
+  const plus=document.getElementById('btnFontPlus');
+  const minus=document.getElementById('btnFontMinus');
+  if(plus) plus.onclick=()=>applyFontStep(currentFontStep()+1);
+  if(minus) minus.onclick=()=>applyFontStep(currentFontStep()-1);
+  const lab=document.getElementById('fontStepLabel');
+  if(lab) lab.textContent=(currentFontStep()+1)+'/5';
+  // home font/sound/timer mirrors
+  const fh=document.getElementById('fontHome');
+  if(fh){ fh.value=prefs.font||'Tajawal'; fh.onchange=e=>{prefs.font=e.target.value;savePrefs();applyPrefs();}; }
+  const sh=document.getElementById('soundHome');
+  if(sh){ sh.checked=prefs.sound!==false; sh.onchange=e=>{prefs.sound=!!e.target.checked;soundOn=prefs.sound;savePrefs();}; }
+  const th=document.getElementById('timerHome');
+  if(th){ th.value=prefs.timer||60; th.onchange=e=>{prefs.timer=Math.max(15,Math.min(180,+e.target.value||60));savePrefs();}; }
+}
+bindFontButtons();
+
+safeApplyPrefs(); buildSession(60);
+
+function safeApplyPrefs(){
+  try{
+    const font=prefs.font||'Tajawal', fs=prefs.fs||16;
+    document.documentElement.style.setProperty('--font',font+',system-ui,sans-serif');
+    document.documentElement.style.setProperty('--fs',fs+'px');
+    document.body.style.fontFamily=font+',system-ui,sans-serif';
+    document.body.style.fontSize=fs+'px';
+    const fh=document.getElementById('fontHome'); if(fh) fh.value=font;
+    const sh=document.getElementById('soundHome'); if(sh) sh.checked = prefs.sound!==false;
+    const th=document.getElementById('timerHome'); if(th) th.value = prefs.timer||60;
+    const ts=document.getElementById('timerSec'); if(ts) ts.value = prefs.timer||60;
+  }catch(e){ console.warn(e); }
+}
+function wireHomeControls(){
+  const start = (n)=>{ try{ buildSession(n); showView('exam'); startQuestion(); }catch(e){ alert('تعذّر بدء الاختبار: '+e.message); } };
+  const b60=document.getElementById('btnStart60');
+  if(b60) b60.onclick=()=>{ const m=(b60.textContent||'').match(/(\d+)/); start(m?+m[1]:60); };
+  const b40=document.getElementById('btnStart40'); if(b40) b40.onclick=()=>start(40);
+  const b20=document.getElementById('btnStart20'); if(b20) b20.onclick=()=>start(20);
+  const bsh=document.getElementById('btnShuffle'); if(bsh) bsh.onclick=()=>{ buildSession(sessionSize||60); alert('تم خلط جلسة جديدة'); };
+  const FONT_STEPS=[14,15,16,18,20];
+  const stepNow=()=>{ const fs=+(prefs.fs||16); let b=2; FONT_STEPS.forEach((v,i)=>{ if(Math.abs(v-fs)<=Math.abs(FONT_STEPS[b]-fs)) b=i; }); return b; };
+  const setStep=(s)=>{ s=Math.max(0,Math.min(4,s)); prefs.fs=FONT_STEPS[s]; savePrefs(); safeApplyPrefs(); const lab=document.getElementById('fontStepLabel'); if(lab) lab.textContent='الحجم '+(s+1); };
+  const bp=document.getElementById('btnFontPlus'); if(bp) bp.onclick=()=>setStep(stepNow()+1);
+  const bm=document.getElementById('btnFontMinus'); if(bm) bm.onclick=()=>setStep(stepNow()-1);
+  setStep(stepNow());
+  const fh=document.getElementById('fontHome'); if(fh) fh.onchange=e=>{ prefs.font=e.target.value; savePrefs(); safeApplyPrefs(); };
+  const sh=document.getElementById('soundHome'); if(sh) sh.onchange=e=>{ prefs.sound=!!e.target.checked; soundOn=prefs.sound; savePrefs(); };
+  const th=document.getElementById('timerHome'); if(th) th.onchange=e=>{ prefs.timer=Math.max(15,Math.min(180,+e.target.value||60)); savePrefs(); };
+  const bn=document.getElementById('btnNight');
+  if(bn){
+    bn.textContent=document.body.classList.contains('night')?'☀️':'🌙';
+    bn.onclick=()=>{ document.body.classList.toggle('night'); safeSet('nightMode', document.body.classList.contains('night')?'1':'0'); bn.textContent=document.body.classList.contains('night')?'☀️':'🌙'; };
+  }
+}
+wireHomeControls();
+
+
+
+
+
+// ================= إصلاحات المراجعة الشاملة =================
+const FILE_TAG='الستون_الذهبية_المجال_الثالث';
+function escH(s){return String(s==null?'':s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
+function normAr(s){
+  return String(s||'').toLowerCase()
+    .replace(/[ً-ٰٟـ]/g,'')
+    .replace(/[أإآٱ]/g,'ا').replace(/ى/g,'ي').replace(/ة/g,'ه').replace(/ؤ/g,'و').replace(/ئ/g,'ي');
+}
+function bankLetterOf(q){
+  const i=(q.options||[]).indexOf(q.correctText||'');
+  return i>=0?(letters[i]||('#'+(i+1))):'—';
+}
+function bankCardHTML(q){
+  const L=bankLetterOf(q);
+  const opts=(q.options||[]).map((o,i)=>{
+    const ok=(o===q.correctText);
+    return '<div class="sr-opt'+(ok?' correct':'')+'">'+letters[i]+') '+escH(o)+(ok?' ✓':'')+'</div>';
+  }).join('');
+  return '<div class="sr-item">'
+    +'<div class="muted" style="margin-bottom:6px">#'+escH(q.id)+' · رمز الإجابة الصحيحة: <b class="sr-letter">'+escH(L)+'</b></div>'
+    +'<div class="sr-q">'+escH(q.question).replace(/\n/g,'<br>')+'</div>'
+    +opts
+    +'<div class="sr-fb"><b>التفسير:</b> '+escH(q.feedback||'—')+'</div>'
+    +(q.context?'<div class="muted" style="font-size:.8rem;margin-top:4px">'+escH(q.context)+'</div>':'')
+    +'</div>';
+}
+function renderBank(){
+  const info=document.getElementById('bankInfo');
+  if(info) info.textContent='البنك: '+BANK.length+' سؤالًا — اعرض السؤال والخيارات الأربعة ورمز الإجابة والتفسير';
+  const box=document.getElementById('bankPreview');
+  if(box) box.innerHTML=BANK.map(bankCardHTML).join('');
+}
+function runBankSearch(){
+  const inp=document.getElementById('bankSearchInput');
+  const prev=document.getElementById('bankPreview');
+  const res=document.getElementById('bankSearchResults');
+  const meta=document.getElementById('bankSearchMeta');
+  const raw=((inp&&inp.value)||'').trim();
+  if(!raw){ if(res) res.innerHTML=''; if(meta) meta.textContent=''; if(prev) prev.classList.remove('hidden'); return; }
+  let hits=[], partial=false;
+  if(/^\d+$/.test(raw)){
+    hits=BANK.filter(q=>String(q.id)===raw);
+  } else {
+    const parts=normAr(raw).split(/\s+/).filter(Boolean);
+    const scored=BANK.map(q=>{
+      const blob=normAr([q.question,q.correctText,q.feedback,q.guiding_words,q.unit,...(q.options||[])].join(' '));
+      let s=0; parts.forEach(p=>{ if(blob.includes(p)) s++; });
+      return {q,s};
+    });
+    hits=scored.filter(x=>x.s===parts.length).map(x=>x.q);
+    if(!hits.length && parts.length>1){
+      const part=scored.filter(x=>x.s>0).sort((a,b)=>b.s-a.s);
+      if(part.length){ hits=part.map(x=>x.q); partial=true; }
+    }
+  }
+  if(prev) prev.classList.add('hidden');
+  if(meta) meta.textContent=hits.length?((partial?'لا توجد مطابقة كاملة — نتائج جزئية: ':'عدد النتائج: ')+hits.length):'لا توجد نتائج مطابقة';
+  if(res) res.innerHTML=hits.length?hits.map(bankCardHTML).join(''):'<p class="muted">لا نتائج. جرّب كلمة واحدة أو صيغة أقصر.</p>';
+}
+function wireBankSearch(){
+  const b=document.getElementById('btnBankSearch');
+  const c=document.getElementById('btnBankSearchClear');
+  const i=document.getElementById('bankSearchInput');
+  if(b) b.onclick=runBankSearch;
+  if(c) c.onclick=()=>{ if(i) i.value=''; runBankSearch(); };
+  if(i){
+    i.addEventListener('input',runBankSearch);
+    i.addEventListener('keydown',e=>{ if(e.key==='Enter'){ e.preventDefault(); runBankSearch(); } });
+  }
+}
+function downloadBlob(data,filename,type){
+  let payload=data;
+  if(!(data instanceof Blob)){
+    let s=typeof data==='string'?data:JSON.stringify(data,null,2);
+    if(type&&type.indexOf('text/plain')===0) s='﻿'+s;
+    payload=new Blob([s],{type:type||'application/json'});
+  }
+  const url=URL.createObjectURL(payload);
+  const a=document.createElement('a');
+  a.href=url; a.download=filename; a.style.display='none';
+  document.body.appendChild(a); a.click();
+  setTimeout(()=>{ try{URL.revokeObjectURL(url);}catch(e){} a.remove(); },4000);
+}
+function exportBankPdf(list,title){
+  const L=['أ','ب','ج','د'];
+  list=list||BANK||[];
+  const rows=list.map((q,i)=>{
+    const opts=(q.options||[]).map((o,j)=>'<div style="margin:4px 0">'+L[j]+') '+escH(o)+'</div>').join('');
+    return '<div style="margin:0 0 18px;padding-bottom:12px;border-bottom:1px solid #ddd;page-break-inside:avoid">'
+      +'<div style="font-weight:700;margin-bottom:6px">س'+(i+1)+'. '+escH(q.question)+'</div>'+opts+'</div>';
+  }).join('');
+  const t=escH(title||'بنك الأسئلة');
+  const html='<!DOCTYPE html><html dir="rtl" lang="ar"><head><meta charset="utf-8"><title>'+t+'</title>'
+    +'<style>body{font-family:Tahoma,Arial,sans-serif;padding:24px;line-height:1.75;color:#111} h1{font-size:1.25rem} @media print{body{padding:12px} .no-print{display:none}}</style></head><body>'
+    +'<div class="no-print" style="margin-bottom:16px"><button onclick="window.print()">حفظ / طباعة PDF</button></div>'
+    +'<h1>'+t+' — '+list.length+' سؤالًا</h1>'
+    +'<p style="color:#555">تصدير بدون إبراز الإجابة الصحيحة · إعداد المهندس سمير حبيب بنتن</p>'+rows+'</body></html>';
+  const fallbackDownload=()=>{
+    downloadBlob(html,FILE_TAG+'_بنك_الأسئلة.html','text/html;charset=utf-8');
+    alert('تعذّرت الطباعة المباشرة. تم تنزيل ملف HTML: افتحه ثم اختر طباعة ← حفظ كـ PDF.');
+  };
+  let w=null;
+  try{ w=window.open('','_blank'); }catch(e){ w=null; }
+  if(w){
+    try{
+      w.document.open(); w.document.write(html); w.document.close();
+      setTimeout(()=>{ try{ w.focus(); w.print(); }catch(e){} },500);
+      return;
+    }catch(e){}
+  }
+  try{
+    const old=document.getElementById('printFrame'); if(old) old.remove();
+    const fr=document.createElement('iframe'); fr.id='printFrame';
+    fr.style.cssText='position:fixed;right:0;bottom:0;width:1px;height:1px;border:0;opacity:0';
+    document.body.appendChild(fr);
+    const d=fr.contentWindow.document; d.open(); d.write(html); d.close();
+    setTimeout(()=>{ try{ fr.contentWindow.focus(); fr.contentWindow.print(); }catch(e){ fallbackDownload(); } },500);
+  }catch(e){ fallbackDownload(); }
+}
+function downloadCert(pct){
+  const name=prompt('اكتب اسمك للشهادة:',''); if(name==null) return;
+  document.getElementById('certName').textContent=name||'متدرّب';
+  document.getElementById('certScore').textContent=pct+'٪';
+  document.getElementById('certDate').textContent=new Date().toLocaleDateString('ar-SA');
+  if(typeof html2canvas==='undefined'){ alert('تعذّر تحميل مكتبة إنشاء الشهادة (تحتاج اتصالاً بالإنترنت). أعد المحاولة بعد الاتصال.'); return; }
+  html2canvas(document.getElementById('cert'),{scale:2,backgroundColor:'#fff',useCORS:true}).then(canvas=>{
+    canvas.toBlob(b=>{ if(b) downloadBlob(b,'شهادة_'+FILE_TAG+'.png','image/png'); else alert('تعذّر إنشاء صورة الشهادة'); },'image/png');
+  }).catch(e=>alert('تعذّر إنشاء الشهادة: '+(e&&e.message||e)));
+}
+wireBankSearch();
+
+</script>
+</body>
+</html>
